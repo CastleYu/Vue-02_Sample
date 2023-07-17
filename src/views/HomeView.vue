@@ -13,7 +13,8 @@
                 </div>
                 <el-submenu index="1">
                     <template slot="title">
-                        <i class="el-icon-message"></i>
+                        
+                        <i class= "el-icon-message"></i>
                         <span slot="title">书籍借阅</span>
                     </template>
                 </el-submenu>
