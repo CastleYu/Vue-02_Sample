@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { MessageBox } from 'element-ui'
 
 Vue.use(VueRouter)
+Vue.prototype.$msgbox = MessageBox
 
 const routes = [
   {

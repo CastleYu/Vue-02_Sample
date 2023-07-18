@@ -1,20 +1,23 @@
 <template>
     <el-container style="min-height: 100vh; border: 1px solid #eee">
 
-        <el-aside :width="sideWidth + 'px'"
-            style="background-color: rgb(238, 241, 246);box-shadow: 2px 0 6px rgb(0 21 41/35%)">
+        <!-- 左侧边栏 -->
+        <el-aside :width="sideWidth + 'px'" style="background-color: rgb(238, 241, 246);
+            box-shadow: 2px 0 6px rgb(0 21 41/35%)">
             <el-menu :default-openeds="['1', '3']" style="min-height: 100%;overflow-x: hidden"
                 background-color="rgb(48,65,86)" text-color="#fff" active-text-color="#ffd04b" :collapse-transition="false"
                 :collapse="isCollapse">
-                <div style="height: 60px;line-height: 60px;text-align: center">
-                    <img src="../assets/logo.png" alt=""
-                        style="width: 25px;position: relative;top:7px;margin-right: 4px;margin-left: 4px">
-                    <b style="color: wheat" v-show="logoTextShow">图书管理系统</b>
-                </div>
+                <router-link to="/about" style="user-select: none;text-decoration: none;">
+                    <div style="height: 60px;line-height: 60px;text-align: center">
+                        <img src="../assets/img.png" alt="logo"
+                            style="width: 25px;position: relative;top:7px;margin-right: 4px;margin-left: 4px;user-select: none;">
+                        <b style="color: wheat;user-select: none;cursor: pointer;" v-show="logoTextShow">图书管理系统</b>
+                    </div>
+                </router-link>
                 <el-submenu index="1">
                     <template slot="title">
-                        
-                        <i class= "el-icon-message"></i>
+
+                        <i class="el-icon-message"></i>
                         <span slot="title">书籍借阅</span>
                     </template>
                 </el-submenu>
@@ -27,29 +30,39 @@
             </el-menu>
         </el-aside>
 
+        <!-- 主体部分 -->
         <el-container>
-
+            <!-- 顶部栏 -->
             <el-header style=" font-size: 12px;border-bottom: 1px solid #ccc;line-height: 60px;display: flex">
                 <div style="flex: 1;font-size:20px">
                     <span :class="collapseBtnClass" style="cursor: pointer" @click="collapse"></span>
                 </div>
-                <el-dropdown style="width: 70px;cursor: pointer">
-                    <span>王小虎</span><i class="el-icon-arrow-down" style="margin-left: 5px"></i>
+
+                <!-- 用户信息入口：下拉列表 -->
+                <el-dropdown trigger="click" v-model="infoMenuVisible" style="cursor: pointer;user-select: none;">
+                    <span class="el-dropdown-link">王小虎</span>
+                    <i :class="iconClass" style="margin-left: 5px"></i>
+
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item>
                             <i class="el-icon-warning-outline"></i>个人信息
                         </el-dropdown-item>
-                        <el-dropdown-item>
+                        
+                        <el-dropdown-item divided>
                             <i class="el-icon-switch-button"></i>登出
                         </el-dropdown-item>
+
                     </el-dropdown-menu>
+
                 </el-dropdown>
+                
             </el-header>
 
+            <!-- 主体栏 -->
             <el-main>
                 <!-- 分页栏 -->
                 <el-breadcrumb separator-class="el-icon-arrow-right" style="padding: 5px 0">
-                    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                    <el-breadcrumb-item :to="{ path: '/aboout' }">首页</el-breadcrumb-item>
                     <el-breadcrumb-item>书籍借阅</el-breadcrumb-item>
                 </el-breadcrumb>
 
@@ -73,7 +86,7 @@
         </div>
         -->
 
-
+                <!-- 表单项目 -->
                 <el-table :data="tableData" border stripe>
                     <el-table-column prop="date" label="书籍名称" width="140">
                     </el-table-column>
@@ -89,11 +102,13 @@
                     </el-table-column>
                 </el-table>
 
+                <!-- 翻页键 -->
                 <div style="padding: 10px 0">
                     <el-pagination :page-sizes="[5, 10, 15, 20]" :page-size="100"
                         layout="total, sizes, prev, pager, next, jumper" :total="400">
                     </el-pagination>
                 </div>
+
             </el-main>
         </el-container>
     </el-container>
@@ -114,12 +129,18 @@ export default {
             collapseBtnClass: 'el-icon-s-fold',
             isCollapse: false,
             sideWidth: 200,
-            logoTextShow: true
+            logoTextShow: true,
         }
     },
     create() {
         //请求查询数据
         //fetch("http://localhost:9090/user/page?pageNum=1&pageSize=10")
+    },
+
+    computed: {
+        // iconClass() {
+        //     return this.infoMenuVisible ? 'el-icon-arrow-down' : 'el-icon-arrow-up';
+        // },
     },
     methods: {
         collapse() {//点击收缩时触发
@@ -133,7 +154,7 @@ export default {
                 this.collapseBtnClass = 'el-icon-s-fold'
                 this.logoTextShow = true
             }
-        }
+        },
     }
 }
 </script>
