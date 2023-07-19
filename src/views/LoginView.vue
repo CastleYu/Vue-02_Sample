@@ -2,17 +2,15 @@
     <el-container style="height: 100vh; display: flex; align-items: center; justify-content: center;">
         <el-card>
             <el-form ref="form" :model="form" label-width="120px"
-                style="display: flex; flex-direction: column; align-items: center;">
+                style="margin: 0 auto;display: flex; align-items: center;">
                 <el-form-item label="用户名" class="form-item">
-                    <el-input v-model="form.username" class="form-input" />
+                    <el-input v-model="form.username" class="form-input"  />
                 </el-form-item>
                 <el-form-item label="密码" class="form-item">
-                    <el-input type="password" v-model="form.password" class="form-input" />
+                    <el-input type="password" v-model="form.password" class="form-input" prefix-icon="el-icon-search" />
                 </el-form-item>
                 <el-form-item class="form-item">
-                    <div class="button-container">
-                        <el-button type="primary" @click="handleSubmit">登录</el-button>
-                    </div>
+                    <el-button type="primary" @click="handleSubmit" style="margin: 0 auto;width: 100%;">登录</el-button>
                 </el-form-item>
             </el-form>
         </el-card>
@@ -46,6 +44,7 @@ export default {
 
 .form-item {
     width: 100%;
+    margin: 10 auto;
 }
 
 .form-input {

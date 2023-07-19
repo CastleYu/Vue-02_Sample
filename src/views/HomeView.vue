@@ -61,6 +61,10 @@
 
             <!-- 主体栏 -->
             <el-main>
+
+
+
+                <!--  -->
                 <!-- 测试区 -->
                 <div>
                     <el-button @click="show3 = !show3">Click Me</el-button>
@@ -86,6 +90,9 @@
                     </Teleport>
                 </div>
                 <!-- /测试区 -->
+                <!--  -->
+
+
 
                 <!-- 分页栏 -->
                 <el-breadcrumb separator-class="el-icon-arrow-right" style="padding: 5px 0">
@@ -104,14 +111,14 @@
                         prefix-icon="el-icon-document-copy"></el-input>
                     <el-button type="primary">搜索</el-button>
                 </div>
-                <!--    学生界面用不到，管理员界面可添加
-        <div style="padding: 10px 0">
-          <el-button type="primary">新增 <i class="el-icon-circle-plus-outline"></i></el-button>
-          <el-button type="danger">批量删除 <i class="el-icon-remove-outline"></i></el-button>
-          <el-button type="primary">导入 <i class="el-icon-download"></i></el-button>
-          <el-button type="primary">导出 <i class="el-icon-upload2"></i></el-button>
-        </div>
-        -->
+                学生界面用不到，管理员界面可添加
+                <div style="padding: 10px 0">
+                    <el-button type="primary">新增 <i class="el-icon-circle-plus-outline"></i></el-button>
+                    <el-button type="danger">批量删除 <i class="el-icon-remove-outline"></i></el-button>
+                    <el-button type="primary">导入 <i class="el-icon-download"></i></el-button>
+                    <el-button type="primary">导出 <i class="el-icon-upload2"></i></el-button>
+                </div>
+
 
                 <!-- 表单项目 -->
                 <el-table :data="tableData" border stripe>
@@ -122,9 +129,13 @@
                     <el-table-column prop="address" label="出版商">
                     </el-table-column>
                     <el-table-column prop="ISBN" label="ISBN号"></el-table-column>
-                    <el-table-column label="操作">
+                    <el-table-column label="操作" style="override:hidden;padding:0;">
                         <template slot-scope="scope">
-                            <el-button type="success">借阅 <i class="el-icon-reading"></i></el-button>
+                            <el-button type="success" style="padding:7px;"> <i class="el-icon-reading" /> 借阅 </el-button>
+                            <el-button style="padding:7px;"><i class="el-icon-takeaway-box" /> 归还 </el-button>
+                            <el-button type="info" @click="showModal = true" style="padding:7px;"><i class="el-icon-info" />
+                                详细信息 </el-button>
+
                         </template>
                     </el-table-column>
                 </el-table>
@@ -144,51 +155,51 @@
 <script>
 import Modal from './Modal.vue'
 export default {
-        name: 'HomeView',
-        data() {
-            const item =
-            {
-                date: '2016-05-02',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1518 弄'
-            };
-            return {
-                tableData: Array(10).fill(item),
-                collapseBtnClass: 'el-icon-s-fold',
-                isCollapse: false,
-                sideWidth: 200,
-                logoTextShow: true,
-                show3: true,
-                showModal: false,
+    name: 'HomeView',
+    data() {
+        const item =
+        {
+            date: '2016-05-02',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1518 弄'
+        };
+        return {
+            tableData: Array(10).fill(item),
+            collapseBtnClass: 'el-icon-s-fold',
+            isCollapse: false,
+            sideWidth: 200,
+            logoTextShow: true,
+            show3: true,
+            showModal: false,
+        }
+    },
+    create() {
+        //请求查询数据
+        //fetch("http://localhost:9090/user/page?pageNum=1&pageSize=10")
+    },
+    components: {
+        Modal
+    },
+    computed: {
+        // iconClass() {
+        //     return this.infoMenuVisible ? 'el-icon-arrow-down' : 'el-icon-arrow-up';
+        // },
+    },
+    methods: {
+        collapse() {//点击收缩时触发
+            this.isCollapse = !this.isCollapse;
+            if (this.isCollapse) {//收缩状态
+                this.sideWidth = 64;
+                this.collapseBtnClass = 'el-icon-s-unfold'
+                this.logoTextShow = false
+            } else {//展开
+                this.sideWidth = 200
+                this.collapseBtnClass = 'el-icon-s-fold'
+                this.logoTextShow = true
             }
         },
-        create() {
-            //请求查询数据
-            //fetch("http://localhost:9090/user/page?pageNum=1&pageSize=10")
-        },
-        components: {
-            Modal
-        },
-        computed: {
-            // iconClass() {
-            //     return this.infoMenuVisible ? 'el-icon-arrow-down' : 'el-icon-arrow-up';
-            // },
-        },
-        methods: {
-            collapse() {//点击收缩时触发
-                this.isCollapse = !this.isCollapse;
-                if (this.isCollapse) {//收缩状态
-                    this.sideWidth = 64;
-                    this.collapseBtnClass = 'el-icon-s-unfold'
-                    this.logoTextShow = false
-                } else {//展开
-                    this.sideWidth = 200
-                    this.collapseBtnClass = 'el-icon-s-fold'
-                    this.logoTextShow = true
-                }
-            },
-        }
     }
+}
 </script>
 
 <style>
