@@ -18,7 +18,11 @@
 
 @font-face {
   font-family: 'MiSans';
-  src: url('../src/assets/fonts/MiSans.ttf');
+  src: url('./assets/fonts/MiSans.ttf');
 }
-
+@font-face {
+  font-family: 'HWZS';
+  src: url('./assets/fonts/STZHONGS.TTF');  /* 根据你的字体文件类型和位置调整 */
+  font-weight: 300;
+}
 </style>

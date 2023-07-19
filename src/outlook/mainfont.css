@@ -1,0 +1,11 @@
+/* main.css 或 global.css */
+@font-face {
+    font-family: 'majorfont';
+    src: url('../assets/fonts/STZHONGS.TTF');
+    /* 根据你的字体文件类型和位置调整 */
+}
+
+body {
+    font-family: 'majorfont', sans-serif;
+    /* 使用你的字体 */
+}
