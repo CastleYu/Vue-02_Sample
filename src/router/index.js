@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import { MessageBox } from 'element-ui'
 
 Vue.use(VueRouter)
@@ -9,21 +8,43 @@ Vue.prototype.$msgbox = MessageBox
 const routes = [
   {
     path: '/',
+    name:'loginView',
+    component: () => import('../views/LoginView')
+  },
+  {
+    path: '/home',
     name: 'home',
-    component: HomeView
+    component: () => import('../views/HomeView')
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting 路由层代码分割
-    // this generates a separate chunk (about.[hash].js) for this route 这将为该路由生成一个单独的块`(about.[hash].js)`。
-    // which is lazy-loaded when the route is visited. 会在路由被访问时被 "懒加载"。
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/info',
+    name: 'info',
+    component: () => import('../views/info')
   },
   {
-    path:'/login',
-    name:'login',
-    component: () => import(/* webpackChunkName: "about" */ '../views/LoginView.vue')
+    path:'/userInfo',
+    name: 'userInfo',
+    component: () => import('../views/userInfo')
+  },
+  {
+    path: '/userRegister',
+    name: 'userRegister',
+    component: () => import('../views/userRegister')
+  },
+  {
+    path: '/adminHome',
+    name: 'adminHome',
+    component: () => import('../views/adminHome')
+  },
+  {
+    path: '/adminLogin',
+    name: 'adminLogin',
+    component: () => import('../views/adminLogin')
+  },
+  {
+    path: '/adminInfo',
+    name: 'adminInfo',
+    component: () => import('../views/adminInfo')
   }
 ]
 

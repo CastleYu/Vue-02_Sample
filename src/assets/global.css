@@ -5,9 +5,9 @@
 }
 
 /* 用于消除侧边栏按钮旁的上下箭头 */
-.el-submenu.is-opened>.el-submenu__title .el-submenu__icon-arrow{
+.el-submenu.is-opened.el-submenu__title .el-submenu__icon-arrow{
     display: none;
 }
-.el-submenu>.el-submenu__title .el-submenu__icon-arrow{
+.el-submenu.el-submenu__title .el-submenu__icon-arrow{
     display: none;
 }
