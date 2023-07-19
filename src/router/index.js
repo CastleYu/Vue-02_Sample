@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import { MessageBox } from 'element-ui'
 
 Vue.use(VueRouter)
@@ -9,18 +8,43 @@ Vue.prototype.$msgbox = MessageBox
 const routes = [
   {
     path: '/',
+    name:'loginView',
+    component: () => import('../views/LoginView')
+  },
+  {
+    path: '/home',
     name: 'home',
-    component: HomeView
+    component: () => import('../views/HomeView')
   },
   {
-    path: '/about',
-    name: 'about',
-    component: () => import('@/views/AboutView.vue')
+    path: '/info',
+    name: 'info',
+    component: () => import('../views/info')
   },
   {
-    path:'/login',
-    name:'login',
-    component: () => import('@/views/account/Login.vue')
+    path:'/userInfo',
+    name: 'userInfo',
+    component: () => import('../views/userInfo')
+  },
+  {
+    path: '/userRegister',
+    name: 'userRegister',
+    component: () => import('../views/userRegister')
+  },
+  {
+    path: '/adminHome',
+    name: 'adminHome',
+    component: () => import('../views/adminHome')
+  },
+  {
+    path: '/adminLogin',
+    name: 'adminLogin',
+    component: () => import('../views/adminLogin')
+  },
+  {
+    path: '/adminInfo',
+    name: 'adminInfo',
+    component: () => import('../views/adminInfo')
   }
 ]
 

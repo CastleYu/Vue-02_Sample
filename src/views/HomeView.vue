@@ -1,218 +1,165 @@
-
 <template>
-    <el-container style="min-height: 100vh; border: 1px solid #eee">
+  <el-container style="min-height: 100vh; border: 1px solid #eee">
 
-        <!-- 左侧边栏 -->
-        <el-aside :width="sideWidth + 'px'" style="background-color: rgb(238, 241, 246);
-            box-shadow: 2px 0 6px rgb(0 21 41/35%)">
-            <el-menu :default-openeds="['1', '3']" style="min-height: 100%;overflow-x: hidden"
-                background-color="rgb(233, 221, 206)" text-color="#354139" active-text-color="#ffd04b"
-                :collapse-transition="true" :collapse="isCollapse">
-                <router-link to="/login" style="user-select: none;text-decoration: none;">
-                    <div style="height: 60px;line-height: 60px;text-align: center">
-                        <img src="../assets/img.png" alt="logo"
-                            style="width: 25px;position: relative;top:7px;margin-right: 4px;margin-left: 4px;user-select: none;">
-                        <b style="color: wheat;user-select: none;cursor: pointer;" v-show="logoTextShow">图书管理系统</b>
-                    </div>
-                </router-link>
+    <el-aside :width="sideWidth+'px'" style="background-color: rgb(238, 241, 246);box-shadow: 2px 0 6px rgb(0 21 41/35%)">
+      <Aside :is-collapse="isCollapse" :logo-text-show="logoTextShow"/>
+    </el-aside>
 
-                <el-submenu index="1">
-                    <template slot="title">
-                        <i class="el-icon-message"></i><span slot="title">书籍借阅</span>
-                    </template>
-                </el-submenu>
+    <el-container>
+      <el-header style="border-bottom: 1px solid #ccc;">
+        <Header :collapse-btn-class="collapseBtnClass" :collapse="collapse" :username="username['username']"/>
+      </el-header>
 
-                <el-submenu index="2">
-                    <template slot="title">
-                        <i class="el-icon-menu"></i><span slot="title">书籍归还</span>
-                    </template>
-                </el-submenu>
-            </el-menu>
+      <el-main>
+        <!-- 分页栏 -->
+        <el-breadcrumb separator-class="el-icon-arrow-right" style="padding: 5px 0">
+          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item>书籍借阅</el-breadcrumb-item>
+        </el-breadcrumb>
 
-        </el-aside>
+        <!-- 查询框 -->
+        <div style="padding: 10px 0">
+          <el-input
+              style="width: 200px;margin-right: 5px"
+              placeholder="条形码索书号"
+              prefix-icon="el-icon-document-copy"
+              v-model="bookID"></el-input>
+          <el-button type="primary" @click="findOne" style="margin-right: 25px">精确搜索</el-button>
 
-        <!-- 主体部分 -->
-        <el-container>
-            <!-- 顶部栏 -->
-            <el-header style=" font-size: 12px;border-bottom: 1px solid #ccc;line-height: 60px;display: flex">
-                <div style="flex: 1;font-size:20px">
-                    <span :class="collapseBtnClass" style="cursor: pointer" @click="collapse"></span>
-                </div>
+          <el-input
+              style="width: 450px;margin-right: 5px"
+              placeholder="支持 作品名 / 作者 / 出版商 / ISBN号 查询"
+              v-model="bookInfo"></el-input>
+          <el-button type="primary" @click="fuzzySearch">模糊搜索</el-button>
+          <el-button type="primary" @click="load">重置</el-button>
+        </div>
 
-                <!-- 用户信息入口：下拉列表 -->
-                <el-dropdown trigger="click" v-model="infoMenuVisible" style="cursor: pointer;user-select: none;">
-                    <span class="el-dropdown-link">王小虎</span>
-                    <i :class="iconClass" style="margin-left: 5px"></i>
+        <!-- 表格内容 -->
+        <el-table :data="tableData" border stripe>
+          <el-table-column prop="book_name" label="书籍名称" width="140">
+          </el-table-column>
+          <el-table-column prop="author" label="作者" width="120">
+          </el-table-column>
+          <el-table-column prop="publisher" label="出版商">
+          </el-table-column>
+          <el-table-column prop="isbn" label="ISBN号"></el-table-column>
+          <el-table-column prop="book_id" label="索书号"></el-table-column>
+          <el-table-column>
+            <template slot-scope="scope">
+              <el-button type="primary" @click="toDetail(scope.row)">详情</el-button>
+              <el-button type="success" @click="borrow">借阅 <i class="el-icon-reading"></i></el-button>
+            </template>
+          </el-table-column>
+        </el-table>
 
-                    <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>
-                            <i class="el-icon-warning-outline"></i>个人信息
-                        </el-dropdown-item>
-
-                        <el-dropdown-item divided>
-                            <i class="el-icon-switch-button"></i>登出
-                        </el-dropdown-item>
-
-                    </el-dropdown-menu>
-
-                </el-dropdown>
-
-            </el-header>
-
-            <!-- 主体栏 -->
-            <el-main>
-
-
-
-                <!--  -->
-                <!-- 测试区 -->
-                <div>
-                    <el-button @click="show3 = !show3">Click Me</el-button>
-
-                    <div style="margin-top: 20px; height: 200px;">
-                        <el-collapse-transition>
-                            <div v-show="show3">
-                                <div class="transition-box">el-collapse-transition</div>
-                                <div class="transition-box">el-collapse-transition</div>
-                            </div>
-                        </el-collapse-transition>
-                    </div>
-                </div>
-                <div>
-                    <button id="show-modal" @click="showModal = true">Show Modal</button>
-                    <Teleport to="body">
-                        <!-- 使用这个 modal 组件，传入 prop -->
-                        <modal :show="showModal" @close="showModal = false">
-                            <template #header>
-                                <h3>this is H3</h3>
-                            </template>
-                        </modal>
-                    </Teleport>
-                </div>
-                <!-- /测试区 -->
-                <!--  -->
-
-
-
-                <!-- 分页栏 -->
-                <el-breadcrumb separator-class="el-icon-arrow-right" style="padding: 5px 0">
-                    <el-breadcrumb-item :to="{ path: '/aboout' }">首页</el-breadcrumb-item>
-                    <el-breadcrumb-item>书籍借阅</el-breadcrumb-item>
-                </el-breadcrumb>
-
-                <!-- 查询框 -->
-                <div style="padding: 10px 0">
-                    <el-input style="width: 150px;margin-right: 5px" placeholder="书名"
-                        prefix-icon="el-icon-notebook-2"></el-input>
-                    <el-input style="width: 100px;margin-right: 5px" placeholder="作者" prefix-icon="el-icon-user"></el-input>
-                    <el-input style="width: 100px;margin-right: 5px" placeholder="出版商"
-                        prefix-icon="el-icon-house"></el-input>
-                    <el-input style="width: 100px;margin-right: 5px" placeholder="ISBN号"
-                        prefix-icon="el-icon-document-copy"></el-input>
-                    <el-button type="primary">搜索</el-button>
-                </div>
-                学生界面用不到，管理员界面可添加
-                <div style="padding: 10px 0">
-                    <el-button type="primary">新增 <i class="el-icon-circle-plus-outline"></i></el-button>
-                    <el-button type="danger">批量删除 <i class="el-icon-remove-outline"></i></el-button>
-                    <el-button type="primary">导入 <i class="el-icon-download"></i></el-button>
-                    <el-button type="primary">导出 <i class="el-icon-upload2"></i></el-button>
-                </div>
-
-
-                <!-- 表单项目 -->
-                <el-table :data="tableData" border stripe>
-                    <el-table-column prop="date" label="书籍名称" width="140">
-                    </el-table-column>
-                    <el-table-column prop="name" label="作者" width="120">
-                    </el-table-column>
-                    <el-table-column prop="address" label="出版商">
-                    </el-table-column>
-                    <el-table-column prop="ISBN" label="ISBN号"></el-table-column>
-                    <el-table-column label="操作" style="override:hidden;padding:0;">
-                        <template slot-scope="scope">
-                            <el-button type="success" style="padding:7px;"> <i class="el-icon-reading" /> 借阅 </el-button>
-                            <el-button style="padding:7px;"><i class="el-icon-takeaway-box" /> 归还 </el-button>
-                            <el-button type="info" @click="showModal = true" style="padding:7px;"><i class="el-icon-info" />
-                                详细信息 </el-button>
-
-                        </template>
-                    </el-table-column>
-                </el-table>
-
-                <!-- 翻页键 -->
-                <div style="padding: 10px 0">
-                    <el-pagination :page-sizes="[5, 10, 15, 20]" :page-size="100"
-                        layout="total, sizes, prev, pager, next, jumper" :total="400">
-                    </el-pagination>
-                </div>
-
-            </el-main>
-        </el-container>
+        <!-- 表格底部分页栏 -->
+        <div style="padding: 10px 0">
+          <el-pagination
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
+              :current-page="pageNum"
+              :page-sizes="[2, 5, 10, 20]"
+              :page-size="pageSize"
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="total">
+          </el-pagination>
+        </div>
+      </el-main>
     </el-container>
+  </el-container>
 </template>
 
 <script>
-import Modal from './Modal.vue'
+import Aside from "@/components/Aside";
+import Header from "@/components/Header";
+
 export default {
     name: 'HomeView',
+    components: {
+      Aside,Header
+    },
     data() {
-        const item =
-        {
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-        };
         return {
-            tableData: Array(10).fill(item),
+            username:"",
+
+            tableData: [],
             collapseBtnClass: 'el-icon-s-fold',
             isCollapse: false,
             sideWidth: 200,
             logoTextShow: true,
             show3: true,
             showModal: false,
+            iconClass:"el-icon-arrow-down",
+
+            pageNum:1,
+            pageSize:5,
+            total:0,
+
+            bookID:'',
+            bookInfo:''
         }
     },
-    create() {
-        //请求查询数据
-        //fetch("http://localhost:9090/user/page?pageNum=1&pageSize=10")
+    created() {
+      this.username=this.$route.query
+      this.load()
     },
-    components: {
-        Modal
-    },
-    computed: {
-        // iconClass() {
-        //     return this.infoMenuVisible ? 'el-icon-arrow-down' : 'el-icon-arrow-up';
-        // },
-    },
-    methods: {
-        collapse() {//点击收缩时触发
-            this.isCollapse = !this.isCollapse;
-            if (this.isCollapse) {//收缩状态
-                this.sideWidth = 64;
-                this.collapseBtnClass = 'el-icon-s-unfold'
-                this.logoTextShow = false
-            } else {//展开
-                this.sideWidth = 200
-                this.collapseBtnClass = 'el-icon-s-fold'
-                this.logoTextShow = true
-            }
-        },
+    methods:{
+      collapse(){//点击收缩时触发
+        this.isCollapse = !this.isCollapse;
+        if (this.isCollapse){//收缩状态
+          this.sideWidth=64;
+          this.collapseBtnClass='el-icon-s-unfold'
+          this.logoTextShow=false
+        }else{//展开
+          this.sideWidth=200
+          this.collapseBtnClass='el-icon-s-fold'
+          this.logoTextShow=true
+        }
+      },
+      load(){//进入界面时触发,加载所有图书信息
+        this.$axios.get('/SearchBook/findAll').then(res => {
+          this.tableData=res.data
+          this.total=res.data.length
+
+          this.bookInfo=""
+          this.bookID=""
+          console.log("载入log")
+        })
+      },
+      findOne(){//根据条形码索书号完全匹配查询
+        this.$axios.get('/SearchBook/findOne?bookId='+this.bookID).then(res => {
+          this.tableData=res.data
+          this.total=res.data.length
+          console.log("精确查询log")
+        })
+      },
+      fuzzySearch(){//根据图书相关信息模糊查询
+        this.$axios.get('/SearchBook/fuzzySearch?pageNum='
+            +this.pageNum+'&pageSize='+this.pageSize+'&searchCond='+this.bookInfo).then(res => {
+          this.tableData=res.data
+          console.log("模糊查询log")
+        })
+      },
+      handleSizeChange(pageSize) {
+        this.pageSize=pageSize
+        this.fuzzySearch()
+      },
+      handleCurrentChange(pageNum) {
+        this.pageNum=pageNum
+        this.fuzzySearch()
+      },
+      borrow(){//点击借阅时触发
+
+        console.log("借阅log")
+      },
+      toDetail(row){
+        this.$router.push({path:'/info',query:{book_id:row.book_id}})
+        console.log("详情log")
+      }
     }
 }
 </script>
 
 <style>
-.transition-box {
-    margin-bottom: 10px;
-    width: 200px;
-    height: 100px;
-    border-radius: 4px;
-    background-color: #409EFF;
-    text-align: center;
-    color: #fff;
-    padding: 40px 20px;
-    box-sizing: border-box;
-    margin-right: 20px;
-}
+
 </style>

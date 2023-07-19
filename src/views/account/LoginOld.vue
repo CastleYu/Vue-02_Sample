@@ -21,7 +21,10 @@
 </template>
   
 <script>
+import router from "@/router";
+
 export default {
+    name:'loginView',
     data() {
         return {
             form: {
@@ -30,35 +33,35 @@ export default {
             }
         }
     },
+    created() {
+      history.pushState(null, null, document.URL);
+      window.addEventListener("popstate", function () {
+        history.pushState(null, null, document.URL);
+      })
+    },
     methods: {
-        handleSubmit() {
-            // 在这里添加登录逻辑
-            console.log('用户名:', this.form.username);
-            console.log('密码:', this.form.password);
+        handleSubmit() {// 在这里添加登录逻辑
+            this.$axios.get('/userLoginToSystem?username='
+                +this.form.username+'&password='+this.form.password).then(res=>res.data).then(res=>{
+              if(res.data==='登录成功') {
+                console.log('用户名:', this.form.username);
+                console.log('密码:', this.form.password);
+                alert("登录成功")
+                router.push({path:'/home',query:{username:this.form.username}})
+              }else{
+                alert("登录失败，请检查用户名或密码是否正确")
+              }
+            })
         }
     }
 }
 </script>
   
 <style scoped>
-.el-container {
-    background: #f5f7fa;
-}
-
-.form-item {
-    width: 100%;
-    margin: 10 auto;
-}
-
-.form-input {
-    width: 50%;
-    margin: 10 auto;
-}
-
-.button-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+.wrapper {
+  height: 100vh;
+  background-image: linear-gradient(to bottom right, #FC466F, #3F5EAA);
+  overflow: hidden;
 }
 
 .floatCard {

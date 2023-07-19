@@ -3,11 +3,15 @@ import App from './App.vue'
 import router from './router'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import './assets/global.css'
 import './outlook/mainfont.css'
-Vue.config.productionTip = false
+import axios from "axios";
 
 Vue.use(ElementUI,{size:"mini"});
+
+Vue.prototype.$axios=axios;
+axios.defaults.baseURL='/proxy_url'
+
+Vue.config.productionTip = false
 
 new Vue({
   router,
