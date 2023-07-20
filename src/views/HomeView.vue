@@ -1,11 +1,12 @@
 <template>
-    <el-container style="min-height: 100vh; border: 1px solid #eee">
+  <el-container style="min-height: 100vh; border: 1px solid #eee">
 
         <el-aside :width="sideWidth + 'px'" style="background-color: rgb(238, 241, 246);box-shadow: 2px 0 6px rgb(0 21 41/35%); transition:width 0.5s;">
             <Aside :is-collapse="isCollapse" :logo-text-show="logoTextShow"  />
         </el-aside>
 
         <el-container>
+
             <el-header style="border-bottom: 1px solid #ccc;">
                 <Header :collapse-btn-class="collapseBtnClass" :collapse="collapse" :username="username['username']" />
             </el-header>
@@ -57,6 +58,7 @@
             </el-main>
         </el-container>
     </el-container>
+  </el-container>
 </template>
 
 <script>
