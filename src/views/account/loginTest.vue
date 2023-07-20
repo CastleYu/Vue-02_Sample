@@ -19,10 +19,8 @@
                 <el-form-item style="margin: 10px 0; text-align: right;">
                     <el-button type="warning" size="small" autocomplete="off"
                         @click="$router.push('/register')">注册</el-button>
-                    <el-button type="primary" size="small" style="text-align: center;"
-                        @click="$router.push('/front')">登录</el-button>
-                    <el-button type="success" size="small" style="text-align: center;"
-                        @click="toggleBackground">按钮</el-button>
+                    <el-button type="primary" size="small" style="text-align: center;"  @click="$router.push('/front')">登录</el-button>
+                    <el-button type="success" size="small" style="text-align: center;" @click="toggleBackground">按钮</el-button>
                 </el-form-item>
 
             </el-form>
@@ -77,11 +75,10 @@ export default {
             });
         },
         toggleBackground() {
-            if (this.background === 'linear-gradient(to bottom right, #FF8235, #30E8BF)') {
-                ;
+            if (this.background === 'linear-gradient(to bottom right, #FF8235, #30E8BF)') {;
                 this.background = 'linear-gradient(to bottom right, #007991, #78ffd6)';
             } else {
-                this.background = 'linear-gradient(to bottom right, #FF8235, #30E8BF)';
+                this.background = 'linear-gradient(to bottom right, #FF8235, #30E8BF)'
             }
         }
     }
@@ -106,4 +103,5 @@ export default {
     box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.25);
     /* 水平阴影的位置(+向右) | 垂直阴影的位置(+向下) | 模糊距离 | 阴影色彩 */
     border-radius: 10px
-}</style>
+}
+</style>
