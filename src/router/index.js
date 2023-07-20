@@ -6,52 +6,61 @@ Vue.use(VueRouter)
 Vue.prototype.$msgbox = MessageBox
 
 const routes = [
-  {
-    path: '/',
-    name:'login',
-    component: () => import('../views/Login')
-  },
-  {
-    path: '/home',
-    name: 'home',
-    component: () => import('../views/HomeView')
-  },
-  {
-    path: '/info',
-    name: 'info',
-    component: () => import('../views/info')
-  },
-  {
-    path:'/userInfo',
-    name: 'userInfo',
-    component: () => import('../views/userInfo')
-  },
-  {
-    path: '/userRegister',
-    name: 'userRegister',
-    component: () => import('../views/userRegister')
-  },
-  {
-    path: '/adminHome',
-    name: 'adminHome',
-    component: () => import('../views/adminHome')
-  },
-  {
-    path: '/adminLogin',
-    name: 'adminLogin',
-    component: () => import('../views/adminLogin')
-  },
-  {
-    path: '/adminInfo',
-    name: 'adminInfo',
-    component: () => import('../views/adminInfo')
-  }
+    {
+        path: '/',
+        redirect: 'login',
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: () => import('../views/account/LoginView.vue')
+    },
+    {
+        path: '/home',
+        name: 'home',
+        component: () => import('../views/HomeView.vue')
+    },
+    {
+        path: '/info',
+        name: 'info',
+        component: () => import('../views/info.vue')
+    },
+    {
+        path: '/userInfo',
+        name: 'userInfo',
+        component: () => import('../views/userInfo.vue')
+    },
+    {
+        path: '/userRegister',
+        name: 'userRegister',
+        component: () => import('../views/account/Register.vue')
+    },
+    {
+        path: '/adminHome',
+        name: 'adminHome',
+        component: () => import('../views/adminHome.vue')
+    },
+    {
+        path: '/adminLogin',
+        name: 'adminLogin',
+        component: () => import('../views/account/adminLogin.vue')
+    },
+    {
+        path: '/adminInfo',
+        name: 'adminInfo',
+        component: () => import('../views/adminInfo.vue')
+    },
+    {
+        path: '/test',
+        name: 'test',
+        component: () => import('../views/account/Login.vue')
+    }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes
 })
 
 export default router
