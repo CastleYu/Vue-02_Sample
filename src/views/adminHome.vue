@@ -35,9 +35,9 @@
                 <div style="padding: 10px 0">
                     <el-button type="success" @click="setNewBookVisible">新增 <i
                             class="el-icon-circle-plus-outline"></i></el-button>
-                    <!-- 尚未实现该接口
-          <el-button type="danger">批量删除 <i class="el-icon-remove-outline"></i></el-button>
-          -->
+                    <!-- 尚未实现该接口 -->
+                    <el-button type="danger">批量删除 <i class="el-icon-remove-outline"></i></el-button>
+
                     <el-button type="primary" @click="load">刷新 <i class="el-icon-refresh-left"></i></el-button>
                 </div>
 
