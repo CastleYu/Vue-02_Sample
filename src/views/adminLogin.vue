@@ -12,8 +12,8 @@
                     v-model="form.password" placeholder="密码"></el-input>
         </el-form-item>
         <el-form-item style="margin: 10px 0; text-align: left">
-          <el-button style="margin-right: 128px;border: transparent;color:chocolate"></el-button>
-          <el-button style="border: transparent" size="small" autocomplete="off" @click="$router.push('/adminRegister')">注册</el-button>
+          <el-button style="margin-right: 128px;border: transparent;color:darkcyan" @click="$router.push('/')">用户登录</el-button>
+          <el-button style="border: transparent;margin-left: 23px" size="small" autocomplete="off" @click="$router.push('/adminRegister')">注册</el-button>
           <el-button type="primary" size="small" autocomplete="off" @click="handleSubmit">登录</el-button>
 
         </el-form-item>
@@ -42,10 +42,10 @@ export default {
         if(res.data==='登录成功') {
           console.log('用户名:', this.form.username);
           console.log('密码:', this.form.password);
-          alert("登录成功")
+          this.$message.success('登录成功')
           router.push({path:'/adminHome',query:{username:this.form.username}})
         }else{
-          alert("登录失败，请检查用户名或密码是否正确")
+          this.$message.error('登录失败，请检查名称或密码是否正确')
         }
       })
     }

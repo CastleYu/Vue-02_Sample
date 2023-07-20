@@ -45,7 +45,13 @@ const routes = [
     path: '/adminInfo',
     name: 'adminInfo',
     component: () => import('../views/adminInfo')
-  }
+  },
+  {
+    path: '/adminRegister',
+    name: 'adminRegister',
+    component: () => import('../views/adminRegister')
+  },
+
 ]
 
 const router = new VueRouter({
