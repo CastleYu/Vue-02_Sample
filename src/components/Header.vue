@@ -39,7 +39,6 @@ export default {
       console.log("个人详情log")
     },
     logOut(){
-      this.$router.push('/loginView')
       this.$router.push('/')
       this.username=""
       console.log("退出登录log")
@@ -48,6 +47,6 @@ export default {
 }
 </script>
 
-
 <style scoped>
+
 </style>

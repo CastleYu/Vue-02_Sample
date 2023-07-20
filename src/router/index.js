@@ -50,11 +50,6 @@ const routes = [
         name: 'adminInfo',
         component: () => import('../views/adminInfo.vue')
     },
-    {
-        path: '/test',
-        name: 'test',
-        component: () => import('../views/account/loginTest.vue')
-    }
 ]
 
 const router = new VueRouter({

@@ -1,8 +1,10 @@
 <template>
-  <el-container style="min-height: 100vh; border: 1px solid #eee">
+    <el-container style="min-height: 100vh; border: 1px solid #eee">
 
-        <el-aside :width="sideWidth + 'px'" style="background-color: rgb(238, 241, 246);box-shadow: 2px 0 6px rgb(0 21 41/35%); transition:width 0.5s;">
-            <Aside :is-collapse="isCollapse" :logo-text-show="logoTextShow"  />
+        <el-aside :width="sideWidth + 'px'"
+            style="background-color: rgb(238, 241, 246);box-shadow: 2px 0 6px rgb(0 21 41/35%); transition:width 0.5s;">
+            <Aside :is-collapse="isCollapse" :logo-text-show="logoTextShow" :main-title="mainTitle"
+                :aside-title_-i="asideTitle_I" :aside-title_-i-i="asideTitle_II" />
         </el-aside>
 
         <el-container>
@@ -26,12 +28,12 @@
 
                     <el-input style="width: 450px;margin-right: 5px" placeholder="支持 作品名 / 作者 / 出版商 / ISBN号 查询"
                         prefix-icon="el-icon-search" @keyup.enter.native="fuzzySearch" v-model="bookInfo"></el-input>
-                    <el-button type="primary" @click="fuzzySearch"  ><i class="el-icon-search preIcon"/>模糊搜索</el-button>
+                    <el-button type="primary" @click="fuzzySearch"><i class="el-icon-search preIcon" />模糊搜索</el-button>
                     <el-button type="primary" @click="load">重置</el-button>
                 </div>
 
                 <!-- 表格内容 -->
-                <el-table :data="tableData" border stripe>
+                <el-table :data="tableData" border stripe v-loading="loading">
                     <el-table-column prop="book_name" label="书籍名称" width="140" />
                     <el-table-column prop="author" label="作者" width="120" />
                     <el-table-column prop="publisher" label="出版商" />
@@ -58,7 +60,6 @@
             </el-main>
         </el-container>
     </el-container>
-  </el-container>
 </template>
 
 <script>
@@ -74,7 +75,10 @@ export default {
     data() {
         return {
             username: "",
-
+            
+            mainTitle: "图书借阅系统",
+            asideTitle_I: "书籍借阅",
+            asideTitle_II: "借阅管理",
             tableData: [],
             collapseBtnClass: 'el-icon-s-fold',
             isCollapse: false,
@@ -91,10 +95,10 @@ export default {
             bookID: '',
             bookInfo: '',
 
-            infoDialog: false,
-            infoId: '',
+            infoDialog: false,//书籍详情：对话触发
+            infoId: '',//书籍详情：传入书籍id
 
-            loading: true,
+            loading: false//目前仅有表格loading
         }
     },
     created() {
@@ -115,7 +119,7 @@ export default {
             }
         },
         load() {//进入界面时触发,加载所有图书信息
-            console.log("载入log")
+            this.loading=true
             this.$axios.get('/SearchBook/findAll').then(res => {
                 this.tableData = res.data
                 this.total = res.data.length
@@ -123,6 +127,8 @@ export default {
                 this.bookInfo = ""
                 this.bookID = ""
                 console.log("载入log")
+                this.loading=false
+
             })
         },
         findOne() {//根据条形码索书号完全匹配查询
@@ -158,11 +164,11 @@ export default {
 </script>
 
 <style>
-
-.preIcon{
+.preIcon {
     margin-right: 4px;
 }
-.el-button{
-    padding: 7px 9px ;
+
+.el-button {
+    padding: 7px 9px;
 }
 </style>
