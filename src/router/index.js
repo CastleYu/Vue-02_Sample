@@ -8,8 +8,8 @@ Vue.prototype.$msgbox = MessageBox
 const routes = [
   {
     path: '/',
-    name:'loginView',
-    component: () => import('../views/LoginView')
+    name:'login',
+    component: () => import('../views/Login')
   },
   {
     path: '/home',
