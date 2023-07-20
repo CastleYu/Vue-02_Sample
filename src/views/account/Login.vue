@@ -75,7 +75,7 @@ export default {
             });
         },
         toggleBackground() {
-            if (this.background === 'linear-gradient(to bottom right, #FF8235, #30E8BF)') {
+            if (this.background === 'linear-gradient(to bottom right, #FF8235, #30E8BF)') {;
                 this.background = 'linear-gradient(to bottom right, #007991, #78ffd6)';
             } else {
                 this.background = 'linear-gradient(to bottom right, #FF8235, #30E8BF)';
