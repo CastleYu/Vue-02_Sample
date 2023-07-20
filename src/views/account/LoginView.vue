@@ -8,7 +8,7 @@
                     <el-input size="medium" prefix-icon="el-icon-user" v-model="form.username" placeholder="用户名"></el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input size="medium" prefix-icon="el-icon-lock" show-password v-model="form.password"
+                    <el-input size="medium" prefix-icon="el-icon-lock" show-password v-model="form.password" @keyup.enter.native="handleSubmit"
                         placeholder="密码"></el-input>
                 </el-form-item>
                 <el-form-item style="margin: 10px 0; text-align: left">
@@ -70,6 +70,7 @@ export default {
     background: #30E8BF;
     background: -webkit-linear-gradient(to bottom right, #FF8235, #30E8BF);
     background: linear-gradient(to bottom right, #FF8235, #30E8BF);
+    margin: 0;
 }
 </style>
   

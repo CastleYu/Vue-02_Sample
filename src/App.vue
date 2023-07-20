@@ -25,4 +25,11 @@
   src: url('./assets/fonts/STZHONGS.TTF');  /* 根据你的字体文件类型和位置调整 */
   font-weight: 300;
 }
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 </style>
