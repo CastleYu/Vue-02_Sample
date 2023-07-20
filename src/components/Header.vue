@@ -4,7 +4,7 @@
       <span :class="collapseBtnClass" style="cursor: pointer" @click="collapse"></span>
     </div>
     <el-dropdown trigger="click" v-model="infoMenuVisible" style="cursor: pointer;user-select: none" >
-      <span>{{ this.username['username'] }}</span><i class="el-icon-arrow-down" style="margin-left: 5px"></i>
+      <span>{{ this.username }}</span><i class="el-icon-arrow-down" style="margin-left: 5px"></i>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item @click.native="toUserInfo">
           <i class="el-icon-warning-outline"></i>个人信息
@@ -31,7 +31,7 @@ export default {
     username:String
   },
   created() {
-
+    console.log(this.username)
   },
   methods:{
     toUserInfo(){
@@ -39,7 +39,7 @@ export default {
       console.log("个人详情log")
     },
     logOut(){
-      this.$router.push('/loginView')
+      this.$router.push('/')
       this.username=""
       console.log("退出登录log")
     }
@@ -48,5 +48,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

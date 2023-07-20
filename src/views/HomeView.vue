@@ -2,7 +2,8 @@
   <el-container style="min-height: 100vh; border: 1px solid #eee">
 
     <el-aside :width="sideWidth+'px'" style="background-color: rgb(238, 241, 246);box-shadow: 2px 0 6px rgb(0 21 41/35%)">
-      <Aside :is-collapse="isCollapse" :logo-text-show="logoTextShow"/>
+      <Aside :is-collapse="isCollapse" :logo-text-show="logoTextShow"
+             :main-title="mainTitle" :aside-title_-i="asideTitle_I" :aside-title_-i-i="asideTitle_II"/>
     </el-aside>
 
     <el-container>
@@ -82,6 +83,9 @@ export default {
         return {
             username:"",
 
+            mainTitle:"图书借阅系统",
+            asideTitle_I:"书籍借阅",
+            asideTitle_II:"借阅管理",
             tableData: [],
             collapseBtnClass: 'el-icon-s-fold',
             isCollapse: false,
@@ -102,6 +106,10 @@ export default {
     created() {
       this.username=this.$route.query
       this.load()
+      history.pushState(null, null, document.URL);
+      window.addEventListener("popstate", function () {
+        history.pushState(null, null, document.URL);
+      })
     },
     methods:{
       collapse(){//点击收缩时触发

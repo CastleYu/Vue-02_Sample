@@ -29,7 +29,7 @@ export default {
   },
   created() {
     let data=this.$route.query
-    this.user.user_name=data.username['username']
+    this.user.user_name=data.username
     this.$axios.get('/findUserId?username='+this.user.user_name).then(res=>res.data).then(res=>{
       this.user.user_id=res.data});
     this.$axios.get('/findUserPhone?username='+this.user.user_name).then(res=>res.data).then(res=>{
