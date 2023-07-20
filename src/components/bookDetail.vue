@@ -41,6 +41,7 @@ export default {
             found: false,
             notFound: false,
             loading: true,
+            retry: 0,
         }
     },
     watch: {
@@ -55,7 +56,7 @@ export default {
             if (!this.bookId) console.log(this.bookId)
             this.$axios.get('/SearchBook/findOne?bookId=' + this.bookId).then(res => {
                 this.bookData = res.data[0]
-                this.loading=false
+                this.loading = false
             })
             console.log("详情log")
             this.found = true;
