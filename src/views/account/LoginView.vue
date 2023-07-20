@@ -1,7 +1,7 @@
 <template>
     <div class="back">
         <div class="floatCard"
-                style="margin: 200px auto; background-color: #fff; width: 360px; height: 280px; padding: 20px; border-radius: 10px">
+            style="margin: 200px auto; background-color: #fff; width: 360px; height: 280px; padding: 20px; border-radius: 10px">
             <div style="margin: 20px 0; text-align: center; font-size: 20px"><b>图 书 借 阅 系 统</b></div>
             <el-form :model="form" ref="userForm">
 
@@ -10,15 +10,16 @@
                 </el-form-item>
 
                 <el-form-item prop="password">
-                    <el-input size="medium" prefix-icon="el-icon-lock" show-password v-model="form.password" @keyup.enter.native="handleSubmit"
-                        placeholder="密码"></el-input>
+                    <el-input size="medium" prefix-icon="el-icon-lock" show-password v-model="form.password"
+                        @keyup.enter.native="handleSubmit" placeholder="密码"></el-input>
                 </el-form-item>
 
                 <el-form-item style="margin: 10px 0;">
                     <el-button style="border: transparent;color:chocolate;float: left;"
                         @click="$router.push('/adminLogin')">管理员登录</el-button>
-                        <el-button style="border: transparent;float: right" type="primary" size="small" autocomplete="off" @click="handleSubmit">登录</el-button>
-                    <el-button style="border: transparent;float: right" size="small" autocomplete="off" 
+                    <el-button style="border: transparent;float: right" type="primary" size="small" autocomplete="off"
+                        @click="handleSubmit">登录</el-button>
+                    <el-button style="border: transparent;float: right" size="small" autocomplete="off"
                         @click="$router.push('/userRegister')">注册</el-button>
                 </el-form-item>
 
@@ -76,6 +77,7 @@ export default {
     background: linear-gradient(to bottom right, #FF8235, #30E8BF);
     margin: 0;
 }
+
 .floatCard {
     box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.25);
     /* 水平阴影的位置(+向右) | 垂直阴影的位置(+向下) | 模糊距离 | 阴影色彩 */

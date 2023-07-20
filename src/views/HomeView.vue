@@ -1,9 +1,8 @@
 <template>
     <el-container style="min-height: 100vh; border: 1px solid #eee">
 
-        <el-aside :width="sideWidth + 'px'"
-            style="background-color: rgb(238, 241, 246);box-shadow: 2px 0 6px rgb(0 21 41/35%); transition:width 0.5s;">
-            <Aside :is-collapse="isCollapse" :logo-text-show="logoTextShow" style="transition:width 0.5s;" />
+        <el-aside :width="sideWidth + 'px'" style="background-color: rgb(238, 241, 246);box-shadow: 2px 0 6px rgb(0 21 41/35%); transition:width 0.5s;">
+            <Aside :is-collapse="isCollapse" :logo-text-show="logoTextShow"  />
         </el-aside>
 
         <el-container>
@@ -25,8 +24,8 @@
                     <el-button type="primary" @click="findOne" style="margin-right: 25px">精确搜索</el-button>
 
                     <el-input style="width: 450px;margin-right: 5px" placeholder="支持 作品名 / 作者 / 出版商 / ISBN号 查询"
-                        v-model="bookInfo"></el-input>
-                    <el-button type="primary" @click="fuzzySearch">模糊搜索</el-button>
+                        prefix-icon="el-icon-search" @keyup.enter.native="fuzzySearch" v-model="bookInfo"></el-input>
+                    <el-button type="primary" @click="fuzzySearch"  ><i class="el-icon-search preIcon"/>模糊搜索</el-button>
                     <el-button type="primary" @click="load">重置</el-button>
                 </div>
 
@@ -39,8 +38,8 @@
                     <el-table-column prop="book_id" label="索书号" />
                     <el-table-column>
                         <template slot-scope="scope">
-                            <el-button type="primary" @click="showDetail(scope.row);">详情</el-button>
-                            <el-button type="success" @click="borrow"><i class="el-icon-reading" /> 借阅</el-button>
+                            <el-button type="primary" @click="infoId = scope.row.book_id; infoDialog = true;">详情</el-button>
+                            <el-button type="success" @click="borrow"><i class="el-icon-reading preIcon" /> 借阅</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -53,19 +52,7 @@
                     </el-pagination>
                 </div>
 
-                <el-dialog title="书籍详情" :visible.sync="infoDialog" @close="clearDetail" width="27.5vw">
-                    <el-descriptions class="margin-top" title="书籍详情" :column="1" border >
-                        <el-descriptions-item label="书籍名称">{{ bookData.book_name }}</el-descriptions-item>
-                        <el-descriptions-item label="作者">{{ bookData.author }}</el-descriptions-item>
-                        <el-descriptions-item label="索书号">{{ bookData.book_id }}</el-descriptions-item>
-                        <el-descriptions-item label="ISBN">{{ bookData.isbn }}</el-descriptions-item>
-                        <el-descriptions-item label="价格">{{ bookData.price }}</el-descriptions-item>
-                    </el-descriptions>
-                    <el-descriptions style="margin: 15px;">
-                        <el-descriptions-item label="简介">{{ bookData.intro }}
-                        </el-descriptions-item>
-                    </el-descriptions>
-                </el-dialog>
+                <book-detail :book-id.sync="infoId" :show.sync="infoDialog" />
 
             </el-main>
         </el-container>
@@ -73,13 +60,14 @@
 </template>
 
 <script>
-import Aside from "@/components/Aside";
-import Header from "@/components/Header";
+import Aside from "@/components/Aside.vue";
+import Header from "@/components/Header.vue";
+import bookDetail from "@/components/bookDetail.vue"
 
 export default {
     name: 'HomeView',
     components: {
-        Aside, Header
+        Aside, Header, bookDetail,
     },
     data() {
         return {
@@ -101,16 +89,10 @@ export default {
             bookID: '',
             bookInfo: '',
 
-            bookData: {
-                book_id: "",
-                book_name: "",
-                isbn: "",
-                author: "",
-                intro: "",
-                publisher: "",
-                price: ""
-            },
             infoDialog: false,
+            infoId: '',
+
+            loading: true,
         }
     },
     created() {
@@ -131,6 +113,7 @@ export default {
             }
         },
         load() {//进入界面时触发,加载所有图书信息
+            console.log("载入log")
             this.$axios.get('/SearchBook/findAll').then(res => {
                 this.tableData = res.data
                 this.total = res.data.length
@@ -164,29 +147,20 @@ export default {
         },
         borrow() {//点击借阅时触发
 
+            console.log(this.infoId)
             console.log("借阅log")
         },
-        showDetail(row) {
-            if (!row.book_id)console.log(row.book_id)
-            this.$axios.get('/SearchBook/findOne?bookId=' + row.book_id).then(res => {
-                this.bookData = res.data[0]
-            })
-            console.log("详情log")
-            this.infoDialog = true;
-        },
-        clearDetail(){
-            this.bookData={
-                book_id: "",
-                book_name: "",
-                isbn: "",
-                author: "",
-                intro: "",
-                publisher: "",
-                price: ""
-            }
-        }
+
     }
 }
 </script>
 
-<style></style>
+<style>
+
+.preIcon{
+    margin-right: 4px;
+}
+.el-button{
+    padding: 7px 9px ;
+}
+</style>
