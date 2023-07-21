@@ -43,6 +43,7 @@ export default {
         };
     },
     created() {
+        //设置该界面禁止返回
         history.pushState(null, null, document.URL);
         window.addEventListener("popstate", function () {
             history.pushState(null, null, document.URL);
