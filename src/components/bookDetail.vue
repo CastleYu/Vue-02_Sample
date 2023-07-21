@@ -39,9 +39,7 @@ export default {
             },
 
             found: false,
-            notFound: false,
             loading: true,
-            retry: 0,
         }
     },
     watch: {
@@ -75,7 +73,7 @@ export default {
                 publisher: "",
                 price: ""
             }
-            console.log("销毁窗口")
+            console.log("初始化数据")
         }
     }
 }

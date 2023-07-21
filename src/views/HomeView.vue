@@ -1,5 +1,5 @@
 <template>
-    <el-container style="min-height: 100vh; border: 1px solid #eee">
+    <el-container style="min-height: 100vh;">
 
         <el-aside :width="sideWidth + 'px'"
             style="background-color: rgb(238, 241, 246);box-shadow: 2px 0 6px rgb(0 21 41/35%); transition:width 0.5s;">
@@ -33,7 +33,7 @@
                 </div>
 
                 <!-- 表格内容 -->
-                <el-table :data="tableData" border stripe v-loading="loading">
+                <el-table :data="tableData" border stripe v-loading="loading" height >
                     <el-table-column prop="book_name" label="书籍名称" width="140" />
                     <el-table-column prop="author" label="作者" width="120" />
                     <el-table-column prop="publisher" label="出版商" />
@@ -48,7 +48,7 @@
                 </el-table>
 
                 <!-- 表格底部分页栏 -->
-                <div style="padding: 10px 0">
+                <div style="padding: 10px 0;">
                     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
                         :current-page="pageNum" :page-sizes="[2, 5, 10, 20]" :page-size="pageSize"
                         layout="total, sizes, prev, pager, next, jumper" :total="total">
