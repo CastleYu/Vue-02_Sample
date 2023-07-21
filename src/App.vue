@@ -4,6 +4,10 @@
     </div>
 </template>
 
+<script>
+document.title="图书管理系统"
+</script>
+
 <style>
 .el-table th {
     background-color: lightyellow !important;

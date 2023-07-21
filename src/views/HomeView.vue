@@ -118,7 +118,8 @@ export default {
                 this.logoTextShow = true
             }
         },
-        load() {//进入界面时触发,加载所有图书信息
+
+        load() {//加载所有图书信息
             this.loading=true
             this.$axios.get('/SearchBook/findAll').then(res => {
                 this.tableData = res.data

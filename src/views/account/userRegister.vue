@@ -1,8 +1,10 @@
 <template>
-    <div class="wrapper">
-        <div
-            style="margin: 150px auto; background-color: #fff; width: 350px; height: 400px; padding: 20px; border-radius: 10px">
-            <div style="margin: 20px 0; text-align: center; font-size: 24px"><b>用 户 注 册</b></div>
+    <div class="back">
+        <div class="floatCard registerShape">
+
+            <div style="margin: 20px 0; text-align: center; font-size: 24px">
+                <b>用 户 注 册</b>
+            </div>
             <el-form :model="user" :rules="rules" ref="userForm">
                 <el-form-item prop="user_name">
                     <el-input placeholder="请输入账号" size="medium" prefix-icon="el-icon-user"
@@ -24,10 +26,13 @@
                     <el-input placeholder="请输入邮箱" size="medium" prefix-icon="el-icon-message"
                         v-model="user.user_email"></el-input>
                 </el-form-item>
-                <el-form-item style="margin: 5px 0; text-align: right">
+                <el-form-item style="margin: 10px 0;">
+                    <el-button style="border:transparent;float: left;" size="small" autocomplete="off"
+                        @click="$router.push('/adminRegister')">管理员注册</el-button>
+                    <el-button style="border: transparent;float :right;" size="small" autocomplete="off"
+                        @click="$router.push('/login')">返回登录</el-button>
                     <el-button type="primary" size="small" autocomplete="off" @click="login"
-                        style="margin-top: 10px">注册</el-button>
-                    <el-button type="warning" size="small" autocomplete="off" @click="$router.push('/login')">返回登录</el-button>
+                        style="float :right;">注册</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -81,15 +86,33 @@ export default {
                     })
                 }
             });
-        }
-    }
-}
+        },
+    },
+};
 </script>
 
-<style>
-.wrapper {
+<style scoped>
+.back {
     height: 100vh;
-    background-image: linear-gradient(to bottom right, #FC466B, #3F5EFB);
     overflow: hidden;
+    background: #30E8BF;
+    background: -webkit-linear-gradient(to bottom right, #FF8235, #30E8BF);
+    background: linear-gradient(to bottom right, #FF8235, #30E8BF);
+    margin: 0;
+}
+
+.floatCard {
+    box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.25);
+    /* 水平阴影的位置(+向右) | 垂直阴影的位置(+向下) | 模糊距离 | 阴影色彩 */
+    border-radius: 10px;
+}
+
+.registerShape {
+    margin: 120px auto;
+    background-color: #fff;
+    width: 360px;
+    height: 440px;
+    padding: 20px;
+    border-radius: 10px;
 }
 </style>
