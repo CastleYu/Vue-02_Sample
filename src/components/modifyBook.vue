@@ -5,29 +5,29 @@
       :visible.sync="modifyBookVisible" title="修改书籍信息">
     <el-form :rules="rules" ref="elForm" :model="bookData" size="medium" label-width="100px">
       <el-form-item label="书名" prop="book_name">
-        <el-input v-model="bookData.book_name" placeholder="请输入书籍名称" clearable :style="{width: '100%'}"></el-input>
+        <el-input v-model="bookData.book_name" placeholder="请输入书籍名称" clearable :style="{width: '90%'}"></el-input>
       </el-form-item>
       <el-form-item label="ISBN" prop="isbn">
-        <el-input v-model="bookData.isbn" placeholder="请输入ISBN号" clearable :style="{width: '100%'}">
+        <el-input v-model="bookData.isbn" placeholder="请输入ISBN号" clearable :style="{width: '90%'}">
         </el-input>
       </el-form-item>
       <el-form-item label="索书号" prop="book_id">{{ bData.book_id }}
       </el-form-item>
       <el-form-item label="作者" prop="author">
-        <el-input v-model="bookData.author" placeholder="请输入作者" clearable :style="{width: '100%'}">
+        <el-input v-model="bookData.author" placeholder="请输入作者" clearable :style="{width: '90%'}">
         </el-input>
       </el-form-item>
       <el-form-item label="出版商" prop="publisher">
-        <el-input v-model="bookData.publisher" placeholder="请输入出版商" clearable :style="{width: '100%'}">
+        <el-input v-model="bookData.publisher" placeholder="请输入出版商" clearable :style="{width: '90%'}">
         </el-input>
       </el-form-item>
       <el-form-item label="价格" prop="price">
-        <el-input v-model="bookData.price" placeholder="请输入价格" clearable :style="{width: '100%'}">
+        <el-input v-model="bookData.price" placeholder="请输入价格" clearable :style="{width: '90%'}">
         </el-input>
       </el-form-item>
       <el-form-item label="简介" prop="intro">
         <el-input v-model="bookData.intro" type="textarea" placeholder="在此输入书籍简介"
-                  :autosize="{minRows: 4, maxRows: 4}" :style="{width: '100%'}"></el-input>
+                  :autosize="{minRows: 4, maxRows: 4}" :style="{width: '90%'}"></el-input>
       </el-form-item>
     </el-form>
     <div slot="footer">
