@@ -33,9 +33,9 @@
                 </div>
 
                 <!-- 表格内容 -->
-                <el-table :data="tableData" border stripe v-loading="loading" height >
+                <el-table :data="tableData" border stripe v-loading="loading" >
                     <el-table-column prop="book_name" label="书籍名称" width="140" />
-                    <el-table-column prop="author" label="作者" width="120" />
+                    <el-table-column prop="author" label="作者" width="140" />
                     <el-table-column prop="publisher" label="出版商" />
                     <el-table-column prop="isbn" label="ISBN号" />
                     <el-table-column prop="book_id" label="索书号" />
@@ -73,92 +73,93 @@ export default {
         Aside, Header, bookDetail,
     },
     data() {
-        return {
-            username: "",
-            
-            mainTitle: "图书借阅系统",
-            asideTitle_I: "书籍借阅",
-            asideTitle_II: "借阅管理",
-            tableData: [],
-            collapseBtnClass: 'el-icon-s-fold',
-            isCollapse: false,
-            sideWidth: 200,
-            logoTextShow: true,
-            show3: true,
-            showModal: false,
-            iconClass: "el-icon-arrow-down",
+      return {
+        username: "",
 
-            pageNum: 1,
-            pageSize: 5,
-            total: 0,
+        mainTitle: "图书借阅系统",
+        asideTitle_I: "书籍借阅",
+        asideTitle_II: "借阅管理",
+        tableData: [],
+        collapseBtnClass: 'el-icon-s-fold',
+        isCollapse: false,
+        sideWidth: 200,
+        logoTextShow: true,
+        show3: true,
+        showModal: false,
+        iconClass: "el-icon-arrow-down",
 
-            bookID: '',
-            bookInfo: '',
+        pageNum: 1,
+        pageSize: 5,
+        total: 0,
 
-            infoDialog: false,//书籍详情：对话触发
-            infoId: '',//书籍详情：传入书籍id
+        bookID: '',
+        bookInfo: '',
 
-            loading: false//目前仅有表格loading
-        }
+        infoDialog: false,//书籍详情：对话触发
+        infoId: '',//书籍详情：传入书籍id
+
+        loading: false//目前仅有表格loading
+      }
     },
     created() {
-        this.username = this.$route.query
-        this.load()
+      this.username = this.$route.query
+      this.load()
     },
     methods: {
-        collapse() {//点击收缩时触发
-            this.isCollapse = !this.isCollapse;
-            if (this.isCollapse) {//收缩状态
-                this.sideWidth = 64;
-                this.collapseBtnClass = 'el-icon-s-unfold'
-                this.logoTextShow = false
-            } else {//展开
-                this.sideWidth = 200
-                this.collapseBtnClass = 'el-icon-s-fold'
-                this.logoTextShow = true
-            }
-        },
+      collapse() {//点击收缩时触发
+        this.isCollapse = !this.isCollapse;
+        if (this.isCollapse) {//收缩状态
+            this.sideWidth = 64;
+            this.collapseBtnClass = 'el-icon-s-unfold'
+            this.logoTextShow = false
+        } else {//展开
+            this.sideWidth = 200
+            this.collapseBtnClass = 'el-icon-s-fold'
+            this.logoTextShow = true
+        }
+      },
 
-        load() {//加载所有图书信息
-            this.loading=true
-            this.$axios.get('/SearchBook/findAll').then(res => {
-                this.tableData = res.data
-                this.total = res.data.length
+      load() {//加载所有图书信息
+        this.loading=true
+        this.$axios.get('/SearchBook/findAll').then(res => {
+          this.tableData = res.data
+          this.total = res.data.length
 
-                this.bookInfo = ""
-                this.bookID = ""
-                console.log("载入log")
-                this.loading=false
-
+          this.bookInfo = ""
+          this.bookID = ""
+          console.log("载入log")
+          this.loading=false
+          this.handleCurrentChange(1)
+          this.handleSizeChange(5)
+        })
+      },
+      findOne() {//根据条形码索书号完全匹配查询
+        this.$axios.get('/SearchBook/findOne?bookId=' + this.bookID).then(res => {
+            this.tableData = res.data
+            this.total = res.data.length
+            console.log("精确查询log")
+        })
+      },
+      fuzzySearch() {//根据图书相关信息模糊查询
+        this.$axios.get('/SearchBook/fuzzySearch?pageNum='
+            + this.pageNum + '&pageSize=' + this.pageSize + '&searchCond=' + this.bookInfo).then(res => {
+          this.tableData = res.data
+          console.log("模糊查询log")
             })
-        },
-        findOne() {//根据条形码索书号完全匹配查询
-            this.$axios.get('/SearchBook/findOne?bookId=' + this.bookID).then(res => {
-                this.tableData = res.data
-                this.total = res.data.length
-                console.log("精确查询log")
-            })
-        },
-        fuzzySearch() {//根据图书相关信息模糊查询
-            this.$axios.get('/SearchBook/fuzzySearch?pageNum='
-                + this.pageNum + '&pageSize=' + this.pageSize + '&searchCond=' + this.bookInfo).then(res => {
-                    this.tableData = res.data
-                    console.log("模糊查询log")
-                })
-        },
-        handleSizeChange(pageSize) {
-            this.pageSize = pageSize
-            this.fuzzySearch()
-        },
-        handleCurrentChange(pageNum) {
-            this.pageNum = pageNum
-            this.fuzzySearch()
-        },
-        borrow() {//点击借阅时触发
+      },
+      handleSizeChange(pageSize) {
+        this.pageSize = pageSize
+        this.fuzzySearch()
+      },
+      handleCurrentChange(pageNum) {
+        this.pageNum = pageNum
+        this.fuzzySearch()
+      },
+      borrow() {//点击借阅时触发
 
-            console.log(this.infoId)
-            console.log("借阅log")
-        },
+        console.log(this.infoId)
+        console.log("借阅log")
+      },
 
     }
 }
@@ -172,4 +173,13 @@ export default {
 .el-button {
     padding: 7px 9px;
 }
+
+.el-submenu.is-opened>.el-submenu__title .el-submenu__icon-arrow{
+  display: none;
+}
+
+.el-submenu>.el-submenu__title .el-submenu__icon-arrow{
+  display: none;
+}
+
 </style>
