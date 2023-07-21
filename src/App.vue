@@ -1,10 +1,9 @@
-<template>
+﻿<template>
     <div id="app">
         <router-view />
     </div>
 </template>
 
-<!-- 表格头部颜色 -->
 <style>
 .el-table th {
     background-color: lightyellow !important;
@@ -22,7 +21,7 @@
 }
 @font-face {
   font-family: 'HWZS';
-  src: url('./assets/fonts/STZHONGS.TTF');  /* 根据你的字体文件类型和位置调整 */
+  src: url('./assets/fonts/STZHONGS.TTF');  
   font-weight: 300;
 }
 
