@@ -2,7 +2,7 @@
     <el-container style="min-height: 100vh;">
 
         <el-aside :width="sideWidth + 'px'"
-            style="background-color: rgb(238, 241, 246);box-shadow: 2px 0 6px rgb(0 21 41/35%); transition:width 0.5s;">
+            style="background-color: rgb(238, 241, 246);box-shadow: 2px 0 6px rgb(0 21 41/35%);">
             <Aside :is-collapse="isCollapse" :logo-text-show="logoTextShow" :main-title="mainTitle"
                 :aside-title_-i="asideTitle_I" :aside-title_-i-i="asideTitle_II" />
         </el-aside>
@@ -16,7 +16,7 @@
             <el-main>
                 <!-- 分页栏 -->
                 <el-breadcrumb separator-class="el-icon-arrow-right" style="padding: 5px 0">
-                    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                    <el-breadcrumb-item :to="{ path: '/login' }">首页</el-breadcrumb-item>
                     <el-breadcrumb-item>书籍借阅</el-breadcrumb-item>
                 </el-breadcrumb>
 
@@ -33,7 +33,7 @@
                 </div>
 
                 <!-- 表格内容 -->
-                <el-table :data="tableData" border stripe v-loading="loading" height >
+                <el-table :data="tableData" border stripe v-loading="loading" height>
                     <el-table-column prop="book_name" label="书籍名称" width="140" />
                     <el-table-column prop="author" label="作者" width="120" />
                     <el-table-column prop="publisher" label="出版商" />
@@ -75,7 +75,7 @@ export default {
     data() {
         return {
             username: "",
-            
+
             mainTitle: "图书借阅系统",
             asideTitle_I: "书籍借阅",
             asideTitle_II: "借阅管理",
@@ -105,6 +105,9 @@ export default {
         this.username = this.$route.query
         this.load()
     },
+    watch: {
+        pageNum(news) { load() }
+    },
     methods: {
         collapse() {//点击收缩时触发
             this.isCollapse = !this.isCollapse;
@@ -120,7 +123,7 @@ export default {
         },
 
         load() {//加载所有图书信息
-            this.loading=true
+            this.loading = true
             this.$axios.get('/SearchBook/findAll').then(res => {
                 this.tableData = res.data
                 this.total = res.data.length
@@ -128,7 +131,7 @@ export default {
                 this.bookInfo = ""
                 this.bookID = ""
                 console.log("载入log")
-                this.loading=false
+                this.loading = false
 
             })
         },
@@ -146,10 +149,14 @@ export default {
                     console.log("模糊查询log")
                 })
         },
+
+        //同步更改一页包含的数据量
         handleSizeChange(pageSize) {
             this.pageSize = pageSize
             this.fuzzySearch()
         },
+
+        //同步更改页码
         handleCurrentChange(pageNum) {
             this.pageNum = pageNum
             this.fuzzySearch()

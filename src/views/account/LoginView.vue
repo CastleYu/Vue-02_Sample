@@ -2,7 +2,7 @@
     <div class="back">
         <div class="floatCard"
             style="margin: 200px auto; background-color: #fff; width: 360px; height: 280px; padding: 20px; border-radius: 10px">
-            <div style="margin: 20px 0; text-align: center; font-size: 20px"><b>{{title}}</b></div>
+            <div style="margin: 20px 0; text-align: center; font-size: 20px"><b>{{ title }}</b></div>
             <el-form :model="form" ref="userForm">
 
                 <el-form-item prop="username">
@@ -39,7 +39,7 @@ export default {
                 username: "",
                 password: "",
             },
-            title:"图 书 借 阅 系 统",
+            title: "图 书 借 阅 系 统",
         };
     },
     created() {
