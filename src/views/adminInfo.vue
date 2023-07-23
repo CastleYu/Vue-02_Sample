@@ -29,12 +29,13 @@ export default {
   },
   created() {
     let data=this.$route.query
-    this.user.user_name=data.username['username']
-    this.$axios.get('/findAdminId?username='+this.user.user_name).then(res=>res.data).then(res=>{
+    this.user.user_name=data.username
+    console.log(this.user.user_name)
+    this.$axios.get('/findAdminId?adminname='+this.user.user_name).then(res=>res.data).then(res=>{
       this.user.user_id=res.data});
-    this.$axios.get('/findAdminPhone?username='+this.user.user_name).then(res=>res.data).then(res=>{
+    this.$axios.get('/findAdminPhone?adminname='+this.user.user_name).then(res=>res.data).then(res=>{
       this.user.user_phone=res.data});
-    this.$axios.get('/findAdminEmail?username='+this.user.user_name).then(res=>res.data).then(res=>{
+    this.$axios.get('/findAdminEmail?adminname='+this.user.user_name).then(res=>res.data).then(res=>{
       this.user.user_email=res.data});
   }
 }

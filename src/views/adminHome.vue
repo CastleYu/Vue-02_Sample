@@ -1,81 +1,34 @@
 <template>
-    <el-container style="min-height: 100vh;">
+  <el-container style="min-height: 100vh; border: 1px solid #eee">
+    <el-aside
+      :width="sideWidth + 'px'"
+      style="background-color: rgb(238, 241, 246);box-shadow: 2px 0 6px rgb(0 21 41/35%)"
+    >
+      <Aside
+        :is-collapse="isCollapse"
+        :logo-text-show="logoTextShow"
+        :main-title="mainTitle"
+        :aside-title_-i="asideTitle_I"
+        :aside-title_-i-i="asideTitle_II"
+        :username="username['username']"
+      />
+    </el-aside>
 
-        <el-aside :width="sideWidth + 'px'"
-            style="background-color: rgb(238, 241, 246);box-shadow: 2px 0 6px rgb(0 21 41/35%);">
-            <Aside :is-collapse="isCollapse" :logo-text-show="logoTextShow" :main-title="mainTitle"
-                :aside-title_-i="asideTitle_I" :aside-title_-i-i="asideTitle_II" />
-        </el-aside>
+    <el-container>
+      <el-header style="border-bottom: 1px solid #ccc;">
+        <Header
+          :collapse-btn-class="collapseBtnClass"
+          :collapse="collapse"
+          :username="username['username']"
+          :is-user="false"
+        />
+      </el-header>
 
-        <el-container>
-
-            <el-header style="border-bottom: 1px solid #ccc;">
-                <Header :collapse-btn-class="collapseBtnClass" :collapse="collapse" :username="username['username']" />
-            </el-header>
-
-            <el-main>
-                <!-- 分页栏 -->
-                <el-breadcrumb separator-class="el-icon-arrow-right" style="padding: 5px 0">
-                    <el-breadcrumb-item :to="{ path: '/adminLogin' }">首页</el-breadcrumb-item>
-                    <el-breadcrumb-item>书籍管理</el-breadcrumb-item>
-                </el-breadcrumb>
-
-                <!-- 查询框 -->
-                <div style="padding: 10px 0">
-                    <el-input style="width: 200px;margin-right: 5px" placeholder="条形码索书号"
-                        prefix-icon="el-icon-document-copy" v-model="bookID"></el-input>
-                    <el-button type="primary" @click="findOne" style="margin-right: 25px">精确搜索</el-button>
-
-                    <el-input style="width: 450px;margin-right: 5px" placeholder="支持 作品名 / 作者 / 出版商 / ISBN号 查询"
-                        prefix-icon="el-icon-search" @keyup.enter.native="fuzzySearch" v-model="bookInfo"></el-input>
-                    <el-button type="primary" @click="fuzzySearch"><i class="el-icon-search preIcon" />模糊搜索</el-button>
-                    <el-button type="primary" @click="load">重置</el-button>
-                </div>
-
-                <!-- 书籍操作栏 -->
-                <div style="padding: 10px 0">
-                    <el-button type="success" @click="setNewBookVisible">新增 <i
-                            class="el-icon-circle-plus-outline"></i></el-button>
-                    <!-- 尚未实现该接口
-          <el-button type="danger">批量删除 <i class="el-icon-remove-outline"></i></el-button>
-          -->
-                    <el-button type="primary" @click="load">刷新 <i class="el-icon-refresh-left"></i></el-button>
-                </div>
-
-                <!-- 新增书籍弹窗 -->
-                <new-book :new-book-visible.sync="newBookVisible"></new-book>
-                <modify-book :modify-book-visible.sync="modifyBookVisible" :b-data="cur_book"></modify-book>
-
-                <!-- 表格内容 -->
-                <el-table :data="tableData" border stripe v-loading="loading" height>
-                    <el-table-column prop="book_name" label="书籍名称" width="140" />
-                    <el-table-column prop="author" label="作者" width="120" />
-                    <el-table-column prop="publisher" label="出版商" />
-                    <el-table-column prop="isbn" label="ISBN号" />
-                    <el-table-column prop="book_id" label="索书号" />
-                    <el-table-column>
-                        <template slot-scope="scope">
-                            <el-button type="primary" @click="infoId = scope.row.book_id; infoDialog = true;">详情</el-button>
-                            <el-button type="warning" @click="setModifyBookVisible(scope.row)">修改</el-button>
-                            <el-button type="danger" @click="deleteBook(scope.row)">删除 <i
-                                    class="el-icon-reading  preIcon" /></el-button>
-                        </template>
-                    </el-table-column>
-                </el-table>
-
-                <!-- 表格底部分页栏 -->
-                <div style="padding: 10px 0;">
-                    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                        :current-page="pageNum" :page-sizes="[2, 5, 10, 20]" :page-size="pageSize"
-                        layout="total, sizes, prev, pager, next, jumper" :total="total">
-                    </el-pagination>
-                </div>
-
-                <book-detail :book-id.sync="infoId" :show.sync="infoDialog" />
-
-            </el-main>
-        </el-container>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
     </el-container>
+  </el-container>
 </template>
 
 <script>

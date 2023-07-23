@@ -16,7 +16,7 @@
       <i class="el-icon-arrow-down" style="margin-left: 5px" />
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item @click.native="toUserInfo">
-          <i class="el-icon-warning-outline" />个人信息
+          <i class="el-icon-warning-outline"></i>个人信息
         </el-dropdown-item>
         <el-dropdown-item @click.native="logOut" divided>
           <i class="el-icon-switch-button" />登出
@@ -28,32 +28,38 @@
 
 <script>
 export default {
-    name: "Head",
-    data() {
-        return {
-            infoMenuVisible: true
-        }
-    },
-    props: {
-        collapseBtnClass: String,
-        collapse: Function,
-        username: String
-    },
-    created() {
-        console.log(this.username)
-    },
-    methods: {
-        toUserInfo() {
-            this.$router.push({ path: '/userInfo', query: { username: this.username } })
-            console.log("个人详情log")
-        },
-        logOut() {
-            this.$router.push('/')
-            this.username = ""
-            console.log("退出登录log")
-        }
+  name: "Head",
+  data(){
+    return{
+      infoMenuVisible:true
     }
+  },
+  props:{
+    collapseBtnClass: String,
+    collapse: Function,
+    username:String,
+    isUser:Boolean
+  },
+  created() {
+
+  },
+  methods:{
+    toUserInfo(){
+      if(this.isUser)
+        this.$router.push({path:'/userInfo',query:{username:this.username}})
+      else
+        this.$router.push({path:'/adminInfo',query:{username:this.username}})
+      console.log("个人详情log")
+    },
+    logOut(){
+      this.$router.push('/')
+      this.username=""
+      console.log("退出登录log")
+    }
+  }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>
