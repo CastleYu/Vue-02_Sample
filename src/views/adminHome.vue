@@ -28,41 +28,41 @@ import newBook from "@/components/newBook";
 import modifyBook from "@/components/modifyBook";
 
 export default {
-  name: 'adminHome',
-  components: {
-    Aside,Header,newBook,modifyBook
-  },
-  data() {
-    return {
-      username:"",
+    name: 'adminHome',
+    components: {
+        Aside, Header, newBook, modifyBook
+    },
+    data() {
+        return {
+            username: "",
 
-      mainTitle:"图书管理系统",
-      asideTitle_I:"书籍管理",
-      asideTitle_II:"学生管理",
+            mainTitle: "图书管理系统",
+            asideTitle_I: "书籍管理",
+            asideTitle_II: "学生管理",
 
-      newBookVisible:false,
-      modifyBookVisible:false,
-      tableData: [],
-      collapseBtnClass: 'el-icon-s-fold',
-      isCollapse: false,
-      sideWidth: 200,
-      logoTextShow: true,
-      show3: true,
-      showModal: false,
-      iconClass:"el-icon-arrow-down",
+            newBookVisible: false,
+            modifyBookVisible: false,
+            tableData: [],
+            collapseBtnClass: 'el-icon-s-fold',
+            isCollapse: false,
+            sideWidth: 200,
+            logoTextShow: true,
+            show3: true,
+            showModal: false,
+            iconClass: "el-icon-arrow-down",
 
-      pageNum:1,
-      pageSize:5,
-      total:0,
+            pageNum: 1,
+            pageSize: 5,
+            total: 0,
 
-      bookID:'',
-      bookInfo:'',
-      cur_book:{}
-    }
-  },
-  created() {
-    this.username=this.$route.query
-    this.load()
+            bookID: '',
+            bookInfo: '',
+            cur_book: {}
+        }
+    },
+    created() {
+        this.username = this.$route.query
+        this.load()
 
     //设置该界面不可返回
     history.pushState(null, null, document.URL);
@@ -88,6 +88,4 @@ export default {
 }
 </script>
 
-
-<style>
-</style>
+<style></style>
