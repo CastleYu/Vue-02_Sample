@@ -35,4 +35,8 @@ document.title="图书管理系统"
     box-sizing: border-box;
 }
 
+.el-textarea__inner {
+  font-family: "MiSans" !important;
+}
+
 </style>
