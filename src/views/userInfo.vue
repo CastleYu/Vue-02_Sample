@@ -65,21 +65,26 @@ export default {
     }
   },
   created() {
-    let data = this.$route.query
-    this.user.user_name = data.username
-    this.$axios.get('/findUserId?username=' + this.user.user_name).then(res => res.data).then(res => {
-        this.user.user_id = res.data
-    });
-    this.$axios.get('/findUserPhone?username=' + this.user.user_name).then(res => res.data).then(res => {
-        this.user.user_phone = res.data
-    });
-    this.$axios.get('/findUserEmail?username=' + this.user.user_name).then(res => res.data).then(res => {
-        this.user.user_email = res.data
-    });
+    this.load()
   },
   methods:{
+    load(){
+      let data = this.$route.query
+      this.user.user_name = data.username
+      this.$axios.get('/findUserId?username=' + this.user.user_name).then(res => res.data).then(res => {
+        this.user.user_id = res.data
+      });
+      this.$axios.get('/findUserPhone?username=' + this.user.user_name).then(res => res.data).then(res => {
+        this.user.user_phone = res.data
+      });
+      this.$axios.get('/findUserEmail?username=' + this.user.user_name).then(res => res.data).then(res => {
+        this.user.user_email = res.data
+      });
+    },
     onOpen(){
-
+      this.$axios.get('/findUserPwd?username='+this.user.user_name).then(res=>res.data).then((res=>{
+        this.user.user_pwd=res.data
+      }))
     },
     onClose(){
       this.$refs['userForm'].resetFields()
@@ -93,7 +98,14 @@ export default {
     modifyInfo(){
       this.$refs['userForm'].validate((valid) => {
         if (valid) {  // 表单校验合法
-
+          this.$axios.post('/modifyStudent',this.user).then(res=>{
+            console.log(res.data)
+            this.$message.success('修改成功')
+            this.setModifyMenuVisible()
+            this.load()
+          })
+        } else {
+          this.$message.error('输入有误或格式不正确，请检查输入')
         }
       });
     }

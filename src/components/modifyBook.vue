@@ -74,6 +74,8 @@ export default {
         console.log(this.bookData)
         this.$axios.post('/modifyBook',this.bookData).then(res=>{
           this.$message.success('修改成功')
+          this.$parent.load()
+          this.close()
         }).catch(err=>{
           console.log(err)
         })

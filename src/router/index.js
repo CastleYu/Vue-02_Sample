@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { MessageBox } from 'element-ui'
+import adminBookTable from "@/views/mainTable/adminBookTable";
+import adminStudentTable from "@/views/mainTable/adminStudentTable";
+import userBookTable from "@/views/mainTable/userBookTable";
+import userRestoreTable from "@/views/mainTable/userRestoreTable";
 
 Vue.use(VueRouter)
 Vue.prototype.$msgbox = MessageBox
@@ -26,8 +30,17 @@ const routes = [
         path: '/home',
         name: 'home',
         meta:{title:'首页'},
+        children: [
+            {
+                path: 'userBookTable',
+                component: userBookTable
+            },
+            {
+                path:'userRestoreTable',
+                component: userRestoreTable
+            }
+        ],
         component: () => import('../views/HomeView.vue')
-        
     },
     {
         path: '/userInfo',
@@ -51,6 +64,16 @@ const routes = [
         path: '/adminHome',
         name: 'adminHome',
         meta:{title:'管理员首页'},
+        children:[
+            {
+                path:"adminBookTable",
+                component:adminBookTable
+            },
+            {
+                path:"adminStudentTable",
+                component:adminStudentTable
+            }
+        ],
         component: () => import('../views/adminHome.vue')
     },
     {

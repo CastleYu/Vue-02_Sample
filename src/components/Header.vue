@@ -28,14 +28,18 @@ export default {
   props:{
     collapseBtnClass: String,
     collapse: Function,
-    username:String
+    username:String,
+    isUser:Boolean
   },
   created() {
-    console.log(this.username)
+
   },
   methods:{
     toUserInfo(){
-      this.$router.push({path:'/userInfo',query:{username:this.username}})
+      if(this.isUser)
+        this.$router.push({path:'/userInfo',query:{username:this.username}})
+      else
+        this.$router.push({path:'/adminInfo',query:{username:this.username}})
       console.log("个人详情log")
     },
     logOut(){
