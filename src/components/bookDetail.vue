@@ -23,8 +23,8 @@ export default {
     name: "bookInfo",
     props:
     {
-        show: Boolean,
-        bookId: String,
+        show: Boolean, //传入显示的信号
+        bookId: String, //传入的图书id
     },
     data() {
         return {
@@ -38,20 +38,18 @@ export default {
                 price: ""
             },
 
-            found: false,
-            loading: true,
+            found: false, //对话框 控制标志
+            loading: true, //加载视图 控制标志
         }
     },
     watch: {
         show(news) { if (news) this.getDetail() },
     },
-    destroyed() {
-        this.clearDetail()
-    },
     methods:
     {
         getDetail() {
-            if (!this.bookId) console.log(this.bookId)
+            //获取
+            if (!this.bookId) {console.log(this.bookId);this.$message.error("查询出现错误");this.clearDetail(); return;}
             this.$axios.get('/SearchBook/findOne?bookId=' + this.bookId).then(res => {
                 this.bookData = res.data[0]
                 this.loading = false
@@ -60,9 +58,9 @@ export default {
             this.found = true;
         },
         clearDetail() {
+            //重置数据
             this.$emit('update:show', false)
             this.found = false;
-            this.notFound = false;
             this.loading = true;
             this.bookData = {
                 book_id: "",

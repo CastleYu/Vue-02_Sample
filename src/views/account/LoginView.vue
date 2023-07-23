@@ -1,7 +1,7 @@
 <template>
     <div class="back">
         <div class="floatCard"
-            style="margin: 200px auto; background-color: #fff; width: 360px; height: 280px; padding: 20px; border-radius: 10px">
+            style="margin: 30vh auto; background-color: #fff; width: 360px; height: 280px; padding: 20px; border-radius: 10px">
             <div style="margin: 20px 0; text-align: center; font-size: 20px"><b>{{ title }}</b></div>
             <el-form :model="form" ref="userForm">
 

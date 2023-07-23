@@ -34,7 +34,7 @@
 
             <el-form-item label="简介" prop="intro">
                 <el-input v-model.lazy="bookData.intro" type="textarea" placeholder="在此输入书籍简介"
-                    :autosize="{ minRows: 4, maxRows: 4 }" style="width:90%;font-family: MiSans;"></el-input>
+                    :autosize="{ minRows: 4, maxRows: 4 }" style="width:90%;"></el-input>
             </el-form-item>
         </el-form>
 

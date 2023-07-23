@@ -28,18 +28,24 @@ const routes = [
     },
     {
         path: '/home',
-        name: 'home',
         meta:{title:'首页'},
         children: [
             {
+                path:'/',
+                redirect:'userBookTable',
+            },
+            {
                 path: 'userBookTable',
+                meta:{title:'书籍借阅'},
                 component: userBookTable
             },
             {
                 path:'userRestoreTable',
+
                 component: userRestoreTable
             }
         ],
+        // redirect:'home/userBookTable'
         component: () => import('../views/HomeView.vue')
     },
     {
@@ -62,9 +68,12 @@ const routes = [
     },
     {
         path: '/adminHome',
-        name: 'adminHome',
         meta:{title:'管理员首页'},
         children:[
+            {
+                path:'/',
+                redirect:'adminBookTable',
+            },
             {
                 path:"adminBookTable",
                 component:adminBookTable
