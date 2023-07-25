@@ -89,23 +89,28 @@ export default {
     },
     methods: {
         handleConfirm() {
-            this.creating=true
-            this.$axios.get('/SearchBook/findOne?bookId=' + this.bookData.book_id).then(res => {
+          this.$refs['elForm'].validate(valid=>{
+            if(valid){
+              this.creating=true
+              this.$axios.get('/SearchBook/findOne?bookId=' + this.bookData.book_id).then(res => {
                 console.log(res.data)
                 // this.$message.info('正在添加')
                 if (res.data.length > 0) {
-                    this.$message.error('该索书号已存在, 请重新编辑索书号')
+                  this.$message.error('该索书号已存在, 请重新编辑索书号')
                 } else {
-                    this.$axios.post('/addBook', this.bookData)
-                    this.$message.success('添加成功')
-                    this.close()
-
+                  this.$axios.post('/addBook', this.bookData)
+                  this.$message.success('添加成功')
+                  this.close()
                 }
-            }).catch(err => {
+              }).catch(err => {
                 this.$message.error('添加失败')
                 console.log(err)
-            })
-            this.creating=false
+              })
+              this.creating=false
+            }else {
+              this.$message.error('输入存在问题，请检查')
+            }
+          })
         },
         onOpen() { },
         onClose() {

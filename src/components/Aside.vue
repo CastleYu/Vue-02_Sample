@@ -6,18 +6,20 @@
             style="width: 25px;position: relative;top:7px;margin-right: 4px;margin-left: 4px">
         <b style="color: wheat" v-show="logoTextShow">{{ mainTitle }}</b>
     </div>
-    <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-message"></i>
-          <router-link :to="{path:this.path_I,query:{'username':username}}">{{ asideTitle_I }}</router-link>
-        </template>
-    </el-submenu>
-    <el-submenu index="2">
-        <template slot="title">
-          <i class="el-icon-menu"></i>
-          <router-link :to="{path:this.path_II,query:{'username':username}}">{{ asideTitle_II }}</router-link>
-        </template>
-    </el-submenu>
+    <div>
+      <el-submenu index="1">
+          <template slot="title">
+            <i class="el-icon-message"></i>
+            <router-link v-if="!isCollapse" :to="{path:this.path_I,query:{'username':username}}">{{ asideTitle_I }}</router-link>
+          </template>
+      </el-submenu>
+      <el-submenu index="2">
+          <template slot="title">
+            <i class="el-icon-menu"></i>
+            <router-link v-if="!isCollapse" :to="{path:this.path_II,query:{'username':username}}">{{ asideTitle_II }}</router-link>
+          </template>
+      </el-submenu>
+    </div>
   </el-menu>
 </template>
 

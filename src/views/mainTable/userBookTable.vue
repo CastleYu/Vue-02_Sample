@@ -83,7 +83,7 @@ export default {
     load() {//加载所有图书信息
       this.loading = true
       this.$axios.get('/SearchBook/findAll').then(res => {
-        this.tableData = res.data
+        //this.tableData = res.data
         this.total = res.data.length
 
         this.bookInfo = ""

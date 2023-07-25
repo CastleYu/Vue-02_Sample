@@ -94,7 +94,7 @@ export default {
     //进入界面时触发,加载所有学生信息
     load() {
       this.$axios.get('/findAllUser').then(res=>res.data).then(res => {
-        this.tableData = res.data
+        //this.tableData = res.data
         this.total = res.data.length
         this.userInfo = ""
         this.userName = ""
