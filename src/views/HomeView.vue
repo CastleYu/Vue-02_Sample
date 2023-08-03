@@ -4,19 +4,18 @@
         <el-aside :width="sideWidth + 'px'"
             style="background-color: rgb(238, 241, 246);box-shadow: 2px 0 6px rgb(0 21 41/35%); transition:width 0.5s;">
             <Aside :is-collapse="isCollapse" :logo-text-show="logoTextShow" :main-title="mainTitle"
-                :aside-title_-i="asideTitle_I" :aside-title_-i-i="asideTitle_II" :username="username['username']"/>
+                :aside-title_-i="asideTitle_I" :aside-title_-i-i="asideTitle_II" :username="username['username']" />
         </el-aside>
 
         <el-container>
 
             <el-header style="border-bottom: 1px solid #ccc;">
-                <Header
-                    :collapse-btn-class="collapseBtnClass" :collapse="collapse"
-                    :username="username['username']" :is-user="true" />
+                <Header :collapse-btn-class="collapseBtnClass" :collapse="collapse" :username="username['username']"
+                    :is-user="true" />
             </el-header>
 
             <el-main>
-              <router-view></router-view>
+                <router-view></router-view>
             </el-main>
         </el-container>
     </el-container>
@@ -33,38 +32,38 @@ export default {
         Aside, Header, bookDetail,
     },
     data() {
-      return {
-        username: "",
+        return {
+            username: "",
 
-        mainTitle: "图书借阅系统",
-        asideTitle_I: "书籍借阅",
-        asideTitle_II: "借阅管理",
-        collapseBtnClass: 'el-icon-s-fold',
-        isCollapse: false,
-        sideWidth: 200,
-        logoTextShow: true,
-        show3: true,
-        showModal: false,
-        iconClass: "el-icon-arrow-down",
+            mainTitle: "图书借阅系统",
+            asideTitle_I: "书籍借阅",
+            asideTitle_II: "借阅管理",
+            collapseBtnClass: 'el-icon-s-fold',
+            isCollapse: false,
+            sideWidth: 200,
+            logoTextShow: true,
+            show3: true,
+            showModal: false,
+            iconClass: "el-icon-arrow-down",
 
-      }
+        }
     },
     created() {
-      this.username=this.$route.query
+        this.username = this.$route.query
     },
     methods: {
-      collapse() {//点击收缩时触发
-        this.isCollapse = !this.isCollapse;
-        if (this.isCollapse) {//收缩状态
-          this.sideWidth = 64;
-          this.collapseBtnClass = 'el-icon-s-unfold'
-          this.logoTextShow = false
-        } else {//展开
-          this.sideWidth = 200
-          this.collapseBtnClass = 'el-icon-s-fold'
-          this.logoTextShow = true
-        }
-      },
+        collapse() {//点击收缩时触发
+            this.isCollapse = !this.isCollapse;
+            if (this.isCollapse) {//收缩状态
+                this.sideWidth = 64;
+                this.collapseBtnClass = 'el-icon-s-unfold'
+                this.logoTextShow = false
+            } else {//展开
+                this.sideWidth = 200
+                this.collapseBtnClass = 'el-icon-s-fold'
+                this.logoTextShow = true
+            }
+        },
     }
 }
 </script>
@@ -77,6 +76,4 @@ export default {
 .el-button {
     padding: 7px 9px;
 }
-
-
 </style>

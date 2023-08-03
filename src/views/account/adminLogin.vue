@@ -1,7 +1,7 @@
 <template>
     <div class="back">
-        <div class="floatCard loginShape" >
-            
+        <div class="floatCard loginShape">
+
             <div style="margin: 20px 0; text-align: center; font-size: 20px"><b>{{ title }}</b></div>
             <el-form :model="form" ref="userForm">
 

@@ -1,24 +1,23 @@
 <template>
-  <el-container style="min-height: 100vh; border: 1px solid #eee">
+    <el-container style="min-height: 100vh; border: 1px solid #eee">
 
-    <el-aside :width="sideWidth+'px'" style="background-color: rgb(238, 241, 246);box-shadow: 2px 0 6px rgb(0 21 41/35%)">
-      <Aside :is-collapse="isCollapse" :logo-text-show="logoTextShow"
-            :main-title="mainTitle" :aside-title_-i="asideTitle_I"
-             :aside-title_-i-i="asideTitle_II" :username="username['username']"/>
-    </el-aside>
+        <el-aside :width="sideWidth + 'px'"
+            style="background-color: rgb(238, 241, 246);box-shadow: 2px 0 6px rgb(0 21 41/35%)">
+            <Aside :is-collapse="isCollapse" :logo-text-show="logoTextShow" :main-title="mainTitle"
+                :aside-title_-i="asideTitle_I" :aside-title_-i-i="asideTitle_II" :username="username['username']" />
+        </el-aside>
 
-    <el-container>
-      <el-header style="border-bottom: 1px solid #ccc;">
-        <Header
-            :collapse-btn-class="collapseBtnClass" :collapse="collapse"
-            :username="username['username']" :is-user="false"/>
-      </el-header>
+        <el-container>
+            <el-header style="border-bottom: 1px solid #ccc;">
+                <Header :collapse-btn-class="collapseBtnClass" :collapse="collapse" :username="username['username']"
+                    :is-user="false" />
+            </el-header>
 
-      <el-main>
-        <router-view></router-view>
-      </el-main>
+            <el-main>
+                <router-view></router-view>
+            </el-main>
+        </el-container>
     </el-container>
-  </el-container>
 </template>
 
 <script>
@@ -64,27 +63,27 @@ export default {
         this.username = this.$route.query
         this.load()
 
-    //设置该界面不可返回
-    history.pushState(null, null, document.URL);
-    window.addEventListener("popstate", function () {
-      history.pushState(null, null, document.URL);
-    })
-  },
-  methods: {
-    //点击收缩时触发
-    collapse() {
-      this.isCollapse = !this.isCollapse;
-      if (this.isCollapse) {//收缩状态
-        this.sideWidth = 64;
-        this.collapseBtnClass = 'el-icon-s-unfold'
-        this.logoTextShow = false
-      } else {//展开
-        this.sideWidth = 200
-        this.collapseBtnClass = 'el-icon-s-fold'
-        this.logoTextShow = true
-      }
+        //设置该界面不可返回
+        history.pushState(null, null, document.URL);
+        window.addEventListener("popstate", function () {
+            history.pushState(null, null, document.URL);
+        })
+    },
+    methods: {
+        //点击收缩时触发
+        collapse() {
+            this.isCollapse = !this.isCollapse;
+            if (this.isCollapse) {//收缩状态
+                this.sideWidth = 64;
+                this.collapseBtnClass = 'el-icon-s-unfold'
+                this.logoTextShow = false
+            } else {//展开
+                this.sideWidth = 200
+                this.collapseBtnClass = 'el-icon-s-fold'
+                this.logoTextShow = true
+            }
+        }
     }
-  }
 }
 </script>
 
