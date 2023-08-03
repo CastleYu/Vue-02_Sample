@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!-- 分页栏 -->
         <el-breadcrumb separator-class="el-icon-arrow-right" style="padding: 5px 0">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item>书籍管理</el-breadcrumb-item>
@@ -11,16 +10,17 @@
             <el-input style="width: 200px;margin-right: 5px" placeholder="学生姓名" prefix-icon="el-icon-document-copy"
                 v-model="userName"></el-input>
             <el-button type="primary" @click="findOne" style="margin-right: 25px">精确搜索</el-button>
-        <!-- 查询框 -->
-        <div style="padding: 10px 0">
-            <el-input style="width: 200px;margin-right: 5px" placeholder="学生姓名" prefix-icon="el-icon-document-copy"
-                v-model="userName"></el-input>
-            <el-button type="primary" @click="findOne" style="margin-right: 25px">精确搜索</el-button>
+            <!-- 查询框 -->
+            <div style="padding: 10px 0">
+                <el-input style="width: 200px;margin-right: 5px" placeholder="学生姓名" prefix-icon="el-icon-document-copy"
+                    v-model="userName"></el-input>
+                <el-button type="primary" @click="findOne" style="margin-right: 25px">精确搜索</el-button>
 
-            <el-input style="width: 450px;margin-right: 5px" placeholder="学生其他信息" prefix-icon="el-icon-search"
-                v-model="userInfo"></el-input>
-            <el-button type="primary" @click="fuzzySearch">模糊搜索</el-button>
-            <el-button type="primary" @click="load">重置</el-button>
+                <el-input style="width: 450px;margin-right: 5px" placeholder="学生其他信息" prefix-icon="el-icon-search"
+                    v-model="userInfo"></el-input>
+                <el-button type="primary" @click="fuzzySearch">模糊搜索</el-button>
+                <el-button type="primary" @click="load">重置</el-button>
+            </div>
         </div>
 
         <!-- 书籍操作栏 -->

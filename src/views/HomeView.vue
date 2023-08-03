@@ -34,8 +34,6 @@ export default {
     data() {
         return {
             username: "",
-        return {
-            username: "",
 
             mainTitle: "图书借阅系统",
             asideTitle_I: "书籍借阅",
@@ -49,7 +47,6 @@ export default {
             showModal: false,
             iconClass: "el-icon-arrow-down",
 
-        }
         }
     },
     created() {
@@ -71,6 +68,7 @@ export default {
         },
 
     }
+
 }
 </script>
 
