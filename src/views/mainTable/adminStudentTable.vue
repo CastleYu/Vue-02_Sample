@@ -20,8 +20,7 @@
 
         <!-- 书籍操作栏 -->
         <div style="padding: 10px 0">
-            <el-button type="success" @click="setNewStudentVisible">新增 <i
-                    class="el-icon-circle-plus-outline"/></el-button>
+            <el-button type="success" @click="setNewStudentVisible">新增 <i class="el-icon-circle-plus-outline" /></el-button>
         </div>
 
         <!-- 新增书籍弹窗 -->
@@ -91,71 +90,73 @@ export default {
                 this.userName = ""
                 this.handleCurrentChange(1)
                 this.handleSizeChange(5)
-            })
-        },
-
-        //根据学生ID完全匹配查询
-        findOne() {
-            this.$axios.get('/SearchUser/findOne?user_name=' + this.userName).then(res => {
-                this.tableData = res.data
-                this.total = res.data.length
-            })
-        },
-
-        //根据学生相关信息模糊查询
-        fuzzySearch() {
-            this.$axios.get('/SearchUser/fuzzySearch?pageNum='
-                + this.pageNum + '&pageSize=' + this.pageSize + '&searchCond=' + this.userInfo).then(res => {
-                    this.tableData = res.data
-                })
-        },
-
-        //同步更改一页包含的数据量
-        handleSizeChange(pageSize) {
-            this.pageSize = pageSize
-            this.fuzzySearch()
-        },
-        //同步更改页码
-        handleCurrentChange(pageNum) {
-            this.pageNum = pageNum
-            this.fuzzySearch()
-        },
-
-        //变更新增学生弹窗的可见性
-        setNewStudentVisible() {
-            this.newStudentVisible = !this.newStudentVisible
-        },
-
-        //删除某条学生数据
-        deleteStudent(row) {
-            this.$confirm("确认删除该学生数据?", "提示", {
-                iconClass: "el-icon-warning-outline",
-                confirmButtonText: "确认",
-                cancelButtonText: "取消",
-                showClose: true,
-                type: "warning",
-            }).then(() => {
-                // 确认操作
-                console.log("delete", row.user_id);
-                this.$axios.post('/deleteStudent?user_id=' + row.user_id)
-                    .then((data) => {
-                        // 学生删除成功，刷新表格
-                        this.load();
-                    })
-                    .catch((err) => {
-                        // 捕获异常，输出错误信息
-                        console.error("删除学生信息失败：", err);
-                    });
-            }).catch(() => {
-                // 取消操作
+            }).catch((err) => {
+                console.log(err)
             });
-        },
-
-        //修改学生信息
-        setModifyStudentVisible(row) {
-            this.modifyStudentVisible = !this.modifyStudentVisible
-            this.cur_user = row
         }
+    },
+
+    //根据学生ID完全匹配查询
+    findOne() {
+        this.$axios.get('/SearchUser/findOne?user_name=' + this.userName).then(res => {
+            this.tableData = res.data
+            this.total = res.data.length
+        })
+    },
+
+    //根据学生相关信息模糊查询
+    fuzzySearch() {
+        this.$axios.get('/SearchUser/fuzzySearch?pageNum='
+            + this.pageNum + '&pageSize=' + this.pageSize + '&searchCond=' + this.userInfo).then(res => {
+                this.tableData = res.data
+            })
+    },
+
+    //同步更改一页包含的数据量
+    handleSizeChange(pageSize) {
+        this.pageSize = pageSize
+        this.fuzzySearch()
+    },
+    //同步更改页码
+    handleCurrentChange(pageNum) {
+        this.pageNum = pageNum
+        this.fuzzySearch()
+    },
+
+    //变更新增学生弹窗的可见性
+    setNewStudentVisible() {
+        this.newStudentVisible = !this.newStudentVisible
+    },
+
+    //删除某条学生数据
+    deleteStudent(row) {
+        this.$confirm("确认删除该学生数据?", "提示", {
+            iconClass: "el-icon-warning-outline",
+            confirmButtonText: "确认",
+            cancelButtonText: "取消",
+            showClose: true,
+            type: "warning",
+        }).then(() => {
+            // 确认操作
+            console.log("delete", row.user_id);
+            this.$axios.post('/deleteStudent?user_id=' + row.user_id)
+                .then((data) => {
+                    // 学生删除成功，刷新表格
+                    this.load();
+                })
+                .catch((err) => {
+                    // 捕获异常，输出错误信息
+                    console.error("删除学生信息失败：", err);
+                });
+        }).catch(() => {
+            // 取消操作
+        });
+    },
+
+    //修改学生信息
+    setModifyStudentVisible(row) {
+        this.modifyStudentVisible = !this.modifyStudentVisible
+        this.cur_user = row
     }
 }
 </script>
