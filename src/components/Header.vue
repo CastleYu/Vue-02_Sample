@@ -3,10 +3,11 @@
         <div style="flex: 1;font-size:20px">
             <span :class="collapseBtnClass" style="cursor: pointer" @click="collapse"></span>
         </div>
-        <el-dropdown trigger="click" v-model="infoMenuVisible" style="cursor: pointer;user-select: none;margin-right: 20px ;">
+        <el-dropdown trigger="click" v-model="infoMenuVisible"
+            style="cursor: pointer;user-select: none;margin-right: 20px ;">
             <span>{{ this.username }}</span>
-            <i class="el-icon-arrow-down" style="margin-left: 5px"  />
-            <el-dropdown-menu slot="dropdown" >
+            <i class="el-icon-arrow-down" style="margin-left: 5px" />
+            <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item @click.native="toUserInfo">
                     <i class="el-icon-warning-outline"></i>个人信息
                 </el-dropdown-item>

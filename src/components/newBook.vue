@@ -100,7 +100,7 @@ export default {
                     })
                 } else {
                     infoMsg.close()
-                this.$message.error('请正确填写图书信息！')
+                    this.$message.error('请正确填写图书信息！')
                     this.progressing = false//处理完成
                 }
             });

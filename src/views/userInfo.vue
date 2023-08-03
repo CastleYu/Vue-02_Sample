@@ -15,11 +15,13 @@
             :visible.sync="modifyMenuVisible" title="修改个人信息">
             <el-form :rules="rules" ref="userForm" :model="user" size="medium" label-width="100px">
                 <el-form-item label="密码" prop="user_pwd">
-                    <el-input show-password v-model="user.user_pwd" placeholder="请输入密码" clearable :style="{ width: '100%' }">
+                    <el-input show-password v-model="user.user_pwd" placeholder="请输入密码" clearable
+                        :style="{ width: '100%' }">
                     </el-input>
                 </el-form-item>
                 <el-form-item label="电话" prop="user_phone">
-                    <el-input v-model="user.user_phone" placeholder="请输入电话号码" clearable :style="{ width: '100%' }"></el-input>
+                    <el-input v-model="user.user_phone" placeholder="请输入电话号码" clearable
+                        :style="{ width: '100%' }"></el-input>
                 </el-form-item>
                 <el-form-item label="邮箱" prop="user_email">
                     <el-input v-model="user.user_email" placeholder="请输入邮箱" clearable :style="{ width: '100%' }">
