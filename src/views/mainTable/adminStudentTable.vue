@@ -11,6 +11,11 @@
             <el-input style="width: 200px;margin-right: 5px" placeholder="学生姓名" prefix-icon="el-icon-document-copy"
                 v-model="userName"></el-input>
             <el-button type="primary" @click="findOne" style="margin-right: 25px">精确搜索</el-button>
+        <!-- 查询框 -->
+        <div style="padding: 10px 0">
+            <el-input style="width: 200px;margin-right: 5px" placeholder="学生姓名" prefix-icon="el-icon-document-copy"
+                v-model="userName"></el-input>
+            <el-button type="primary" @click="findOne" style="margin-right: 25px">精确搜索</el-button>
 
             <el-input style="width: 450px;margin-right: 5px" placeholder="学生其他信息" prefix-icon="el-icon-search"
                 v-model="userInfo"></el-input>
@@ -84,7 +89,7 @@ export default {
         //进入界面时触发,加载所有学生信息
         load() {
             this.$axios.get('/findAllUser').then(res => res.data).then(res => {
-                this.tableData = res.data
+                // this.tableData = res.data
                 this.total = res.data.length
                 this.userInfo = ""
                 this.userName = ""
@@ -161,4 +166,5 @@ export default {
 }
 </script>
 
+<style></style>
 <style></style>

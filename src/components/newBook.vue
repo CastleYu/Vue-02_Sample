@@ -34,7 +34,7 @@
 
             <el-form-item label="简介" prop="intro">
                 <el-input v-model.lazy="bookData.intro" type="textarea" placeholder="在此输入书籍简介"
-                    :autosize="{ minRows: 4, maxRows: 4 }" style="width:90%;"></el-input>
+                    :autosize="{ minRows: 4, maxRows: 4 }" style="width:90%;font-family: MiSans;"></el-input>
             </el-form-item>
         </el-form>
 
@@ -42,7 +42,8 @@
         <div slot="footer" style="margin: 0;">
             <el-button type="info" @click="onClose">重置</el-button>
             <el-button @click="close">关闭</el-button>
-            <el-button type="primary" @click="handleConfirm" :disabled="progressing">确定</el-button>
+            <el-button type="primary" @click="handleConfirm" v-loading="creating" :disabled="creating"
+                element-loading-spinner="el-icon-loading">确定</el-button>
         </div>
     </el-dialog>
 </template>
@@ -77,7 +78,7 @@ export default {
     },
     methods: {
         handleConfirm() {
-            let invalid = false;
+
             this.progressing = true //处理中
             let infoMsg = this.$message('正在添加')
             this.$refs['elForm'].validate((valid) => {

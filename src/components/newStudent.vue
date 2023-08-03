@@ -60,17 +60,23 @@ export default {
     },
     methods: {
         handleConfirm() {
-            this.$axios.get('/findUserName?username=' + this.studentData.user_name).then(res => {
-                console.log(res.data)
-                if (res.data.length > 0) {
-                    this.$message.error('账号名称不唯一,请重新编辑账号名称')
+            this.$refs['elForm'].validate(valid => {
+                if (valid) {
+                    this.$axios.get('/findUserName?username=' + this.studentData.user_name).then(res => {
+                        console.log(res.data)
+                        if (res.data.length > 0) {
+                            this.$message.error('账号名称不唯一,请重新编辑账号名称')
+                        } else {
+                            this.$axios.post('/userRegisterAccount', this.studentData)
+                            this.$message.success('添加成功')
+                            this.$emit('load')
+                        }
+                    }).catch(err => {
+                        console.log(err)
+                    })
                 } else {
-                    this.$axios.post('/userRegisterAccount', this.studentData)
-                    this.$message.success('添加成功')
-                    this.$emit('load')
+                    this.$message.error('输入存在问题，请检查')
                 }
-            }).catch(err => {
-                console.log(err)
             })
         },
         onOpen() { },

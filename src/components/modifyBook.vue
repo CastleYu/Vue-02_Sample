@@ -76,16 +76,21 @@ export default {
             progressing: false,
         }
     },
-
     methods: {
         handleConfirm() {
-            console.log(this.bookData)
-            this.$axios.post('/modifyBook', this.bookData).then(res => {
-                this.$message.success('修改成功')
-                this.$parent.load()
-                this.close()
-            }).catch(err => {
-                console.log(err)
+            this.$refs['elForm'].validate(valid => {
+                if (valid) {
+                    console.log(this.bookData)
+                    this.$axios.post('/modifyBook', this.bookData).then(res => {
+                        this.$message.success('修改成功')
+                        this.$parent.load()
+                        this.close()
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                } else {
+                    this.$message.error('输入存在问题，请检查')
+                }
             })
         },
         onOpen() {

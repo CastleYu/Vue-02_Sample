@@ -60,12 +60,18 @@ export default {
     },
     methods: {
         handleConfirm() {
-            console.log(this.studentData)
-            this.$axios.post('/modifyStudent', this.studentData).then(res => {
-                this.$message.success('修改成功')
-                this.$parent.load()
-            }).catch(err => {
-                console.log(err)
+            this.$refs['elForm'].validate(valid => {
+                if (valid) {
+                    console.log(this.studentData)
+                    this.$axios.post('/modifyStudent', this.studentData).then(res => {
+                        this.$message.success('修改成功')
+                        this.$parent.load()
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                } else {
+                    this.$message.error('输入存在问题，请检查')
+                }
             })
         },
         onOpen() {

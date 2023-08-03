@@ -6,7 +6,7 @@
                 style="width: 25px;position: relative;top:7px;margin-right: 4px;margin-left: 4px">
             <b style="color: wheat" v-show="logoTextShow">{{ mainTitle }}</b>
         </div>
-        <router-link :to="{ path: this.path_I, query: { 'username': username } }">
+        <router-link v-if="!isCollapse" :to="{ path: this.path_I, query: { 'username': username } }">
             <el-submenu index="1">
                 <template slot="title">
                     <i class="el-icon-message"></i>
@@ -14,7 +14,7 @@
                 </template>
             </el-submenu>
         </router-link>
-        <router-link :to="{ path: this.path_II, query: { 'username': username } }">
+        <router-link v-if="!isCollapse" :to="{ path: this.path_II, query: { 'username': username } }">
             <el-submenu index="2">
                 <template slot="title">
                     <i class="el-icon-menu"></i>
